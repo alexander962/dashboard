@@ -1,0 +1,72 @@
+.auth {
+  @apply flex-center-center bg-auth-bg h-[100vh] relative max-[769px]:px-[15px] overflow-hidden;
+
+  &GradientTop {
+    @apply absolute top-[-300px] right-[-20px] w-[612px] h-[612px] rounded-[612px] blur-[250px] bg-gradient-color;
+  }
+
+  &GradientBottom {
+    @apply absolute bottom-[-300px] left-[-100px] w-[612px] h-[612px] rounded-[612px] blur-[250px] bg-gradient-color;
+  }
+
+  &Inner {
+    @apply w-full max-w-[654px] rounded-2xl bg-auth-block py-[81px] px-[124px] max-[769px]:bg-transparent max-[769px]:px-0 max-[769px]:py-0;
+    backdrop-filter: blur(13.5px);
+    @media screen and (max-width: 769px) {
+      backdrop-filter: none;
+    }
+
+    &Block {
+      @apply flex flex-col items-center mt-[42px] max-[769px]:mt-[72px];
+
+      input {
+        @apply w-full rounded border border-solid border-[#727272] py-[15px] px-[10px] bg-transparent
+        outline-none text-white text-base font-light tracking-[0.5px];
+
+        &::placeholder {
+          @apply text-[#727272] text-base font-light tracking-[0.5px];
+        }
+
+        &:focus {
+          @apply border-primary-active;
+        }
+
+        &.authInputError {
+          @apply border-[#FF8383] focus:border-[#FF8383]
+        }
+      }
+
+      span {
+        @apply absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer;
+      }
+    }
+
+    &Btn, &Btn[type='submit']   {
+      @apply w-full py-[11.5px] rounded bg-btn-active mt-[30px] text-white text-[18px] font-semibold text-center hover:bg-btn-hover transition duration-300;
+    }
+
+    &Link {
+      @apply text-white text-center text-[14px] leading-[20px] tracking-[0.25px] font-light mt-[24px];
+    }
+  }
+
+  &Link {
+    @apply w-full absolute bottom-[44px] left-1/2 -translate-x-1/2 text-white text-center text-[14px] leading-[20px] tracking-[0.25px] font-light;
+
+    span {
+      @apply underline;
+    }
+  }
+
+  &Title {
+    @apply text-white text-center text-[32px] leading-[110%] font-semibold mt-[24px] max-[769px]:text-[36px];
+  }
+
+  &Eye {
+    svg {
+      path {
+        stroke: red;
+      }
+    }
+  }
+}
