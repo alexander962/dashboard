@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './Auth.module.scss';
 import { useForm } from 'react-hook-form';
 import EyeIcon from '../../components/icons/EyeIcon';
 import NoneEyeIcon from '../../components/icons/NoneEyeIcon';
@@ -23,18 +22,24 @@ const Auth = () => {
   };
 
   return (
-    <div className={styles.auth}>
-      <div className={styles.authGradientTop}></div>
-      <div className={styles.authGradientBottom}></div>
-      <div className={styles.authInner}>
-        <h2 className={styles.authTitle}>Sign in</h2>
+    <div className="flex-center-center bg-auth-bg h-[100vh] relative max-[769px]:px-[15px] overflow-hidden">
+      <div className="absolute top-[-300px] right-[-20px] w-[612px] h-[612px] rounded-[612px] blur-[250px] bg-gradient-color"></div>
+      <div className="absolute bottom-[-300px] left-[-100px] w-[612px] h-[612px] rounded-[612px] blur-[250px] bg-gradient-color"></div>
+      <div className="w-full max-w-[654px] rounded-2xl bg-auth-block py-[81px] px-[124px] max-[769px]:bg-transparent max-[769px]:px-0 max-[769px]:py-0">
+        <h2 className="text-white text-center text-[32px] leading-[110%] font-semibold mt-[24px] max-[769px]:text-[36px]">
+          Sign in
+        </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.authInnerBlock}>
+          <div className="flex flex-col items-center mt-[42px] max-[769px]:mt-[72px]">
             <div className="w-full mb-[12px]">
               <input
                 type="text"
                 placeholder="Email"
-                className={errors.email && styles.authInputError}
+                className={`w-full rounded border border-solid border-${
+                  errors.email ? 'error-color' : '[#727272]'
+                } py-[15px] px-[10px] bg-transparent
+              outline-none text-white text-base font-light tracking-[0.5px] placeholder:text-[#727272] placeholder:text-base placeholder:font-light 
+              placeholder:tracking-[0.5px] focus:${errors.email ? 'border-error-color' : 'border-primary-active'} `}
                 {...register('email', {
                   required: 'Email is required.',
                   pattern: {
@@ -43,13 +48,17 @@ const Auth = () => {
                   },
                 })}
               />
-              {errors.email && <p className="text-red-500 mt-2">{errors.email.message}</p>}
+              {errors.email && <p className="text-[#E73A5F] mt-2">{errors.email.message}</p>}
             </div>
             <div className="relative w-full">
               <input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
-                className={errors.password && styles.authInputError}
+                className={`w-full rounded border border-solid border-${
+                  errors.password ? 'error-color' : '[#727272]'
+                } py-[15px] px-[10px] bg-transparent
+              outline-none text-white text-base font-light tracking-[0.5px] placeholder:text-[#727272] placeholder:text-base placeholder:font-light 
+              placeholder:tracking-[0.5px] focus:${errors.password ? 'border-error-color' : 'border-primary-active'} `}
                 {...register('password', {
                   required: 'Password is required.',
                   pattern: {
@@ -58,23 +67,21 @@ const Auth = () => {
                   },
                 })}
               />
-              <span onClick={togglePasswordVisibility}>
-                {showPassword ? (
-                  <div className={errors.password && styles.authEye}>
-                    <NoneEyeIcon />
-                  </div>
-                ) : (
-                  <div className={errors.password && styles.authEye}>
-                    <EyeIcon />
-                  </div>
-                )}
+              <span
+                onClick={togglePasswordVisibility}
+                className="absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
+              >
+                {showPassword ? <NoneEyeIcon error={errors.password} /> : <EyeIcon error={errors.password} />}
               </span>
             </div>
-            {errors.password && <p className="text-red-500 mt-2 mr-auto">{errors.password.message}</p>}
-            <button type="submit" className={styles.authInnerBtn}>
+            {errors.password && <p className="text-[#E73A5F] mt-2 mr-auto">{errors.password.message}</p>}
+            <button
+              type="submit"
+              className="w-full py-[11.5px] rounded bg-btn-active mt-[30px] text-white text-[18px] font-semibold text-center hover:bg-btn-hover transition duration-300"
+            >
               Login
             </button>
-            <p className={styles.authInnerLink}>
+            <p className="text-white text-center text-[14px] leading-[20px] tracking-[0.25px] font-light mt-[24px]">
               <Link to="/registration" className="underline">
                 Forgot your password?
               </Link>
@@ -82,11 +89,11 @@ const Auth = () => {
           </div>
         </form>
       </div>
-      <p className={styles.authLink}>
+      <p className="w-full absolute bottom-[44px] left-1/2 -translate-x-1/2 text-white text-center text-[14px] leading-[20px] tracking-[0.25px] font-light">
         Don’t have an account?
-        <Link to="/registration">
+        <Link to="/registration" className="underline">
           {' '}
-          <span>Sign up</span>
+          Sign up
         </Link>
       </p>
     </div>

@@ -30,6 +30,7 @@ module.exports = {
       },
       borderColor: {
         'primary-active': '#4422EF',
+        'error-color': '#E73A5F',
       },
     },
   },
