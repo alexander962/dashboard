@@ -9,6 +9,7 @@ import closeIcon from './close-icon.svg';
 import outIcon from './out-icon.svg';
 import avatar from './avatar.svg';
 import burgerMenu from './burger.svg';
+import closeMenuIcon from './close-menu-icon.svg';
 
 export {
   eye,
@@ -22,4 +23,5 @@ export {
   outIcon,
   avatar,
   burgerMenu,
+  closeMenuIcon,
 };
