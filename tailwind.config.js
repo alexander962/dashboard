@@ -27,6 +27,7 @@ module.exports = {
         'btn-active': '#4422EF',
         'btn-hover': '#1F00BB',
         'gradient-color': 'rgba(68, 34, 239, 0.36);',
+        'main-bg': '#121212',
       },
       borderColor: {
         'primary-active': '#4422EF',
