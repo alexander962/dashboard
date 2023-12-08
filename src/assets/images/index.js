@@ -10,6 +10,10 @@ import outIcon from './out-icon.svg';
 import avatar from './avatar.svg';
 import burgerMenu from './burger.svg';
 import closeMenuIcon from './close-menu-icon.svg';
+import searchIcon from './search.svg';
+import filtersIcon from './filters.svg';
+import viewIcon from './view.svg';
+import viewGraphIcon from './view-graph.svg';
 
 export {
   eye,
@@ -24,4 +28,8 @@ export {
   avatar,
   burgerMenu,
   closeMenuIcon,
+  searchIcon,
+  filtersIcon,
+  viewIcon,
+  viewGraphIcon,
 };

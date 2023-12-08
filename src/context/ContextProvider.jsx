@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import useWindowSize from '../hooks/useWindowSize';
 
 const StateContext = createContext();
 
@@ -7,8 +8,14 @@ const initialState = {
 };
 
 export const ContextProvider = ({ children }) => {
+  const { width } = useWindowSize();
   const [activeMenu, setActiveMenu] = useState(true);
   const [activePlans, setActivePlans] = useState(true);
+  const [tableDisplay, setTableDisplay] = useState(false);
+
+  useEffect(() => {
+    setActiveMenu(width > 1024);
+  }, [width]);
   return (
     <StateContext.Provider
       value={{
@@ -17,6 +24,8 @@ export const ContextProvider = ({ children }) => {
         setActiveMenu,
         activePlans,
         setActivePlans,
+        tableDisplay,
+        setTableDisplay,
       }}
     >
       {children}

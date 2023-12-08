@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import EyeIcon from '../../components/icons/EyeIcon';
-import NoneEyeIcon from '../../components/icons/NoneEyeIcon';
+import EyeIcon from '../../components/ui/icons/EyeIcon';
+import NoneEyeIcon from '../../components/ui/icons/NoneEyeIcon';
+import { validEmail, validPassword } from './login.constants';
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ const Registration = () => {
                   {...register('email', {
                     required: 'Email is required.',
                     pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      value: validEmail,
                       message: 'Invalid email address',
                     },
                   })}
@@ -91,7 +92,7 @@ const Registration = () => {
                   {...register('password', {
                     required: 'Password is required.',
                     pattern: {
-                      value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{4,}$/,
+                      value: validPassword,
                       message: 'Password must contain Latin letters, numbers, and one of the symbols @$!%*#?&',
                     },
                   })}

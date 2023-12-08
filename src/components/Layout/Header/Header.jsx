@@ -1,7 +1,7 @@
 import React from 'react';
-import { avatar, burgerMenu } from '../../assets/images';
+import { avatar, burgerMenu } from '../../../assets/images';
 import { NavLink } from 'react-router-dom';
-import { useStateContext } from '../../context/ContextProvider';
+import { useStateContext } from '../../../context/ContextProvider';
 
 const Header = () => {
   const { setActiveMenu } = useStateContext();

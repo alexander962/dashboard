@@ -28,6 +28,7 @@ module.exports = {
         'btn-hover': '#1F00BB',
         'gradient-color': 'rgba(68, 34, 239, 0.36);',
         'main-bg': '#121212',
+        'gray-bg': '#1c1c1c',
       },
       borderColor: {
         'primary-active': '#4422EF',
