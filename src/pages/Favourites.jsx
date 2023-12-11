@@ -3,8 +3,11 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Header from '../components/Layout/Header/Header';
 import Title from '../components/Title/Title';
 import FormGraphics from '../components/FormGraphics/FormGraphics';
+import Table from '../components/Table/Table';
+import { useStateContext } from '../context/ContextProvider';
 
 const Favourites = () => {
+  const { tableDisplay } = useStateContext();
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar />
@@ -15,6 +18,7 @@ const Favourites = () => {
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
           <Title title="Favourites" />
           <FormGraphics />
+          {tableDisplay ? <Table /> : <div>Graphic</div>}
         </main>
       </div>
     </div>

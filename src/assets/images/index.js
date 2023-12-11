@@ -14,6 +14,12 @@ import searchIcon from './search.svg';
 import filtersIcon from './filters.svg';
 import viewIcon from './view.svg';
 import viewGraphIcon from './view-graph.svg';
+import arrowDown from './arrow-down.svg';
+import arrowDownBig from './arrow-down-big.svg';
+import profitIcon from './profit.svg';
+import lossProfitIcon from './lossProfit.svg';
+import arrowRed from './arrow-down-red.svg';
+import arrowGreen from './arrow-up-green.svg';
 
 export {
   eye,
@@ -32,4 +38,10 @@ export {
   filtersIcon,
   viewIcon,
   viewGraphIcon,
+  arrowDown,
+  arrowDownBig,
+  profitIcon,
+  lossProfitIcon,
+  arrowRed,
+  arrowGreen,
 };

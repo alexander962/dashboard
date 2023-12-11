@@ -1,5 +1,5 @@
 import React from 'react';
-import { closeMenuIcon } from '../../assets/images';
+import { arrowDownBig, closeMenuIcon } from '../../assets/images';
 
 const Field = ({ filter, onFilterChange, type, placeholder }) => {
   console.log(filter);
@@ -32,6 +32,14 @@ const FiltersModal = ({
   setFilterCountry,
   filterRegion,
   setFilterRegion,
+  filterTime,
+  setFilterTime,
+  showDropdownTime,
+  setShowDropdownTime,
+  filterStatus,
+  setFilterStatus,
+  showDropdownStatus,
+  setShowDropdownStatus,
 }) => {
   const handleSaveFilters = () => {
     const filters = [
@@ -42,7 +50,8 @@ const FiltersModal = ({
       filterCommodities,
       filterCountry,
       filterRegion,
-    ].filter(filter => filter.trim() !== '');
+      filterTime,
+    ].filter(filter => filter.trim() !== '' && filter.trim() !== 'All time' && filter.trim() !== 'Active Status');
     onAddFilter(filters);
     setFilterName('');
     setFilterCom('');
@@ -51,7 +60,22 @@ const FiltersModal = ({
     setFilterCommodities('');
     setFilterCountry('');
     setFilterRegion('');
+    setFilterTime('All time');
+    setFilterStatus('Active Status');
     onClose();
+  };
+
+  const dropdownOptionsTime = ['All time', 'Day', 'Week'];
+  const dropdownOptionsStatus = ['Active Status', 'Not active status'];
+
+  const handleFieldSelectTime = field => {
+    setFilterTime(field);
+    setShowDropdownTime(false);
+  };
+
+  const handleFieldSelectStatus = field => {
+    setFilterStatus(field);
+    setShowDropdownStatus(false);
   };
 
   return (
@@ -74,6 +98,62 @@ const FiltersModal = ({
         />
         <Field type="text" filter={filterCountry} onFilterChange={setFilterCountry} placeholder="Country" />
         <Field type="text" filter={filterRegion} onFilterChange={setFilterRegion} placeholder="Region" />
+
+        <div className="relative mb-[12px] z-10">
+          <button
+            className="flex items-center justify-between w-full px-[17px] py-[9px] border border-[#727272]
+             bg-transparent rounded relative focus:border-primary-active"
+            onClick={() => setShowDropdownTime(!showDropdownTime)}
+          >
+            <span className="text-[#939393] text-[16px] leading-[23px]">{filterTime}</span>
+            <img src={arrowDownBig} alt="" />
+          </button>
+
+          {showDropdownTime && (
+            <div className="absolute w-full bg-[#242424] rounded px-2 py-1">
+              {dropdownOptionsTime.map(option => (
+                <div
+                  key={option}
+                  onClick={() => handleFieldSelectTime(option)}
+                  className={`pb-1 pt-2 pl-1 cursor-pointer border-b border-solid border-[#3C3C3C] text-[16px] 
+                  leading-[22px] hover:${
+                    option === filterTime ? 'bg-transparent' : 'bg-[#3C3C3C]'
+                  } mb-[4px] last:border-none last:mb-0 text-${option === filterTime ? '[#6A6A6A]' : 'white'}`}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="relative mb-[12px]">
+          <button
+            className="flex items-center justify-between w-full px-[17px] py-[9px] border border-[#727272]
+             bg-transparent rounded relative focus:border-primary-active"
+            onClick={() => setShowDropdownStatus(!showDropdownStatus)}
+          >
+            <span className="text-[#939393] text-[16px] leading-[23px]">{filterStatus}</span>
+            <img src={arrowDownBig} alt="" />
+          </button>
+
+          {showDropdownStatus && (
+            <div className="absolute w-full bg-[#242424] z-20 rounded px-2 py-1">
+              {dropdownOptionsStatus.map(option => (
+                <div
+                  key={option}
+                  onClick={() => handleFieldSelectStatus(option)}
+                  className={`pb-1 pt-2 pl-1 cursor-pointer border-b border-solid border-[#3C3C3C] text-[16px] 
+                  leading-[22px] hover:${
+                    option === filterStatus ? 'bg-transparent' : 'bg-[#3C3C3C]'
+                  } mb-[4px] last:border-none last:mb-0 text-${option === filterStatus ? '[#6A6A6A]' : 'white'}`}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
         <button className="w-full px-4 py-2 bg-btn-active text-white rounded mr-2" onClick={handleSaveFilters}>
           Create

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { arrowLeft, arrowRight, closeIcon, closeMenuIcon, outIcon, planIcon } from '../../assets/images';
 import { useStateContext } from '../../context/ContextProvider';
 import { NavLink } from 'react-router-dom';

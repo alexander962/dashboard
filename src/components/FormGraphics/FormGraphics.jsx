@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { closeIcon, filtersIcon, viewGraphIcon, viewIcon } from '../../assets/images';
+import { arrowDown, closeIcon, filtersIcon, viewGraphIcon, viewIcon } from '../../assets/images';
 import SearchIcon from '../ui/icons/SearchIcon';
 import { useStateContext } from '../../context/ContextProvider';
 import FiltersModal from '../FiltresModal/FiltersModal';
 
 const FormGraphics = () => {
+  const { tableDisplay, setTableDisplay } = useStateContext();
   const [search, setSearch] = useState('');
   const [showFiltersModal, setShowFiltersModal] = useState(false);
-  const { tableDisplay, setTableDisplay } = useStateContext();
   const [filters, setFilters] = useState([]);
   const [filterName, setFilterName] = useState('');
   const [filterCom, setFilterCom] = useState('');
@@ -16,6 +16,20 @@ const FormGraphics = () => {
   const [filterCommodities, setFilterCommodities] = useState('');
   const [filterCountry, setFilterCountry] = useState('');
   const [filterRegion, setFilterRegion] = useState('');
+  const [filterTime, setFilterTime] = useState('All time');
+  const [showDropdownTime, setShowDropdownTime] = useState(false);
+  const [filterStatus, setFilterStatus] = useState('Active Status');
+  const [showDropdownStatus, setShowDropdownStatus] = useState(false);
+
+  const [selectedField, setSelectedField] = useState('Production');
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleFieldSelect = field => {
+    setSelectedField(field);
+    setShowDropdown(false);
+  };
+
+  const dropdownOptions = ['Production', 'Revenue', 'Expenses'];
 
   const addFilter = newFilter => {
     setFilters(newFilter);
@@ -96,6 +110,14 @@ const FormGraphics = () => {
             setFilterCountry={setFilterCountry}
             filterRegion={filterRegion}
             setFilterRegion={setFilterRegion}
+            filterTime={filterTime}
+            setFilterTime={setFilterTime}
+            showDropdownTime={showDropdownTime}
+            setShowDropdownTime={setShowDropdownTime}
+            filterStatus={filterStatus}
+            setFilterStatus={setFilterStatus}
+            showDropdownStatus={showDropdownStatus}
+            setShowDropdownStatus={setShowDropdownStatus}
           />
         </div>
       )}
@@ -111,7 +133,33 @@ const FormGraphics = () => {
             </div>
           ))}
         </div>
-        <div>Select</div>
+
+        <div className="relative">
+          <button
+            className="flex items-center gap-[12px] px-[10px] py-[5px] border border-transparent bg-gray-bg rounded relative focus:border-[#454545]"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            <span className="text-white text-[16px] leading-[23px]">{selectedField}</span>
+            <img src={arrowDown} alt="" />
+          </button>
+
+          {showDropdown && (
+            <div className="absolute mt-1 w-full bg-[#242424] rounded px-2 py-1">
+              {dropdownOptions.map(option => (
+                <div
+                  key={option}
+                  onClick={() => handleFieldSelect(option)}
+                  className={`pb-1 pt-2 pl-1 cursor-pointer border-b border-solid border-[#3C3C3C] text-[16px] 
+                  leading-[22px] hover:${
+                    option === selectedField ? 'bg-transparent' : 'bg-[#3C3C3C]'
+                  } mb-[4px] last:border-none last:mb-0 text-${option === selectedField ? '[#6A6A6A]' : 'white'}`}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
