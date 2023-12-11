@@ -15,6 +15,8 @@ const Plans = () => {
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
           <Title title="Plans" />
           <Plan />
+          <Plan />
+          <Plan />
         </main>
       </div>
     </div>
