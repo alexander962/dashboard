@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { useStateContext } from '../../../context/ContextProvider';
 
 const Header = () => {
-  const { setActiveMenu } = useStateContext();
+  const { setActiveMenuMobile } = useStateContext();
   return (
     <div className="flex items-center justify-end py-[17px] border-b border-solid border-[#3F3F3F] max-[1024px]:px-8 max-[1024px]:justify-between max-[768px]:px-4">
       <div className="hidden items-center gap-8 max-[1024px]:flex">
-        <button onClick={() => setActiveMenu(true)}>
+        <button onClick={() => setActiveMenuMobile(true)}>
           <img src={burgerMenu} alt="" />
         </button>
         <h3 className="text-white text-[20px] font-semibold">Mdata</h3>

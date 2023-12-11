@@ -5,12 +5,14 @@ import Title from '../components/Title/Title';
 import FormGraphics from '../components/FormGraphics/FormGraphics';
 import Table from '../components/Table/Table';
 import { useStateContext } from '../context/ContextProvider';
+import ModalMobileMenu from '../components/ModalMobileMenu/ModalMobileMenu';
 
 const Favourites = () => {
   const { tableDisplay } = useStateContext();
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar />
+      <ModalMobileMenu />
       <div
         className={`bg-main-bg min-h-screen w-full ml-[240px] bg-main-bg px-[24px] max-[1024px]:ml-[0] max-[1024px]:px-[0]`}
       >

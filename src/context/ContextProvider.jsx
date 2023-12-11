@@ -9,7 +9,8 @@ const initialState = {
 
 export const ContextProvider = ({ children }) => {
   const { width } = useWindowSize();
-  const [activeMenu, setActiveMenu] = useState(width > 1025);
+  const [activeMenu, setActiveMenu] = useState(true);
+  const [activeMenuMobile, setActiveMenuMobile] = useState(false);
   const [activePlans, setActivePlans] = useState(true);
   const [tableDisplay, setTableDisplay] = useState(false);
 
@@ -26,6 +27,8 @@ export const ContextProvider = ({ children }) => {
         setActivePlans,
         tableDisplay,
         setTableDisplay,
+        activeMenuMobile,
+        setActiveMenuMobile,
       }}
     >
       {children}
