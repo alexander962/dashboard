@@ -2,11 +2,8 @@ import React from 'react';
 import data from '../../data/table.json';
 import { arrowGreen, arrowRed, lossProfitIcon, profitIcon } from '../../assets/images';
 import { NavLink } from 'react-router-dom';
-import useWindowSize from '../../hooks/useWindowSize';
 
 const Table = () => {
-  const { width } = useWindowSize();
-
   return (
     <div>
       <div className="bg-table-bg from-purple-800 to-transparent px-[24px] py-[16px] rounded-[16px] mt-[24px] max-[1025px]:hidden">

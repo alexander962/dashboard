@@ -1,0 +1,32 @@
+[
+  {
+  "title": "Basic",
+  "price": "$20",
+  "advantages": [
+    "Essential resource data.",
+    "Basic charts and forecasts.",
+    "Limited company tracking."
+  ]
+  },
+  {
+    "title": "Business",
+    "price": "$100",
+    "advantages": [
+      "All Standard Plan features.",
+      "Advanced analytics and custom reports.",
+      "More charts, comparisons, historical data.",
+      "Unlimited company tracking."
+    ]
+  },
+  {
+    "title": "Premium",
+    "price": "$500",
+    "advantages": [
+      "All Business Plan features.",
+      "Customization options.",
+      "Early data access.",
+      "Personal consultant.",
+      "Exclusive content."
+    ]
+  }
+]
