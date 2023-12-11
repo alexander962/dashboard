@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Header from '../components/Layout/Header/Header';
 import Title from '../components/Title/Title';
+import Plan from '../components/PlanComponent/Plan';
 
 const Plans = () => {
   return (
@@ -13,6 +14,7 @@ const Plans = () => {
         <Header />
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
           <Title title="Plans" />
+          <Plan />
         </main>
       </div>
     </div>
