@@ -30,7 +30,7 @@ const Sidebar = () => {
       }`}
     >
       <div
-        className={`${activeMenu ? 'w-[240px]' : 'w-[102px]'} ${
+        className={`${activeMenu ? 'w-[240px]' : 'w-[102px] transition-all duration-200'} ${
           width < 1025 && !activeMenu
             ? '-translate-x-[320px] transition-all duration-500'
             : width < 1025 && activeMenu
