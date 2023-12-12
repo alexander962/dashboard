@@ -4,12 +4,14 @@ import Header from '../components/Layout/Header/Header';
 import Title from '../components/Title/Title';
 import Plan from '../components/PlanComponent/Plan';
 import data from '../data/plans.json';
+import ModalMobileMenu from '../components/ModalMobileMenu/ModalMobileMenu';
 
 const Plans = () => {
   const [activeTime, setActiveTime] = useState('month');
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar />
+      <ModalMobileMenu />
       <div
         className={`bg-main-bg min-h-screen w-full ml-[240px] bg-main-bg px-[24px] max-[1024px]:ml-[0] max-[1024px]:px-[0]`}
       >

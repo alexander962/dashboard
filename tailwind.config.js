@@ -54,6 +54,11 @@ module.exports = {
           textAlign: 'left',
           background: 'rgba(68, 34, 239, 0.24)',
         },
+        '.profile-row': {
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+          padding: '7px 0',
+        },
       });
       addUtilities({
         '.flex-center-between': {

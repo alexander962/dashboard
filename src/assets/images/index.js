@@ -21,6 +21,7 @@ import lossProfitIcon from './lossProfit.svg';
 import arrowRed from './arrow-down-red.svg';
 import arrowGreen from './arrow-up-green.svg';
 import checkIcon from './plan-check-icon.svg';
+import editeIcon from './edite-circle.svg';
 
 export {
   eye,
@@ -46,4 +47,5 @@ export {
   arrowRed,
   arrowGreen,
   checkIcon,
+  editeIcon,
 };

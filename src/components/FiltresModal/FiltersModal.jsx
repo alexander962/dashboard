@@ -51,6 +51,7 @@ const FiltersModal = ({
       filterCountry,
       filterRegion,
       filterTime,
+      filterStatus,
     ].filter(filter => filter.trim() !== '' && filter.trim() !== 'All time' && filter.trim() !== 'Active Status');
     onAddFilter(filters);
     setFilterName('');
