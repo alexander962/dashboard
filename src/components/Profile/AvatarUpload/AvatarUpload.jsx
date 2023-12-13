@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { avatar, editeIcon } from '../../assets/images';
+import { avatar, editeIcon } from '../../../assets/images';
 
 const AvatarUpload = () => {
   const [imageSrc, setImageSrc] = useState(null);

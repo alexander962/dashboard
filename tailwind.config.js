@@ -33,10 +33,12 @@ module.exports = {
         'gradient-color': 'rgba(68, 34, 239, 0.36)',
         'main-bg': '#121212',
         'gray-bg': '#1c1c1c',
+        'tab-active-bg': 'rgba(255, 255, 255, 0.07)',
       },
       borderColor: {
         'primary-active': '#4422EF',
         'error-color': '#E73A5F',
+        'tab-border': 'rgba(255, 255, 255, 0.11)',
       },
     },
   },
