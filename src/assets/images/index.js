@@ -22,6 +22,9 @@ import arrowRed from './arrow-down-red.svg';
 import arrowGreen from './arrow-up-green.svg';
 import checkIcon from './plan-check-icon.svg';
 import editeIcon from './edite-circle.svg';
+import increaseIcon from './increase.svg';
+import detailImg1 from './detail-img-1.png';
+import detailImg2 from './detail-img-2.png';
 
 export {
   eye,
@@ -48,4 +51,7 @@ export {
   arrowGreen,
   checkIcon,
   editeIcon,
+  increaseIcon,
+  detailImg1,
+  detailImg2,
 };

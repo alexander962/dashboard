@@ -6,6 +6,7 @@ import Registration from './pages/auth/Registration';
 import Favourites from './pages/Favourites';
 import Plans from './pages/Plans';
 import Profile from './pages/Profile';
+import Company from './pages/Company';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/plans" element={<Plans />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/company/:id" element={<Company />} />
       </Routes>
     </BrowserRouter>
   );

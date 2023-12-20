@@ -2,7 +2,6 @@ import React from 'react';
 import { arrowDownBig, closeMenuIcon } from '../../assets/images';
 
 const Field = ({ filter, onFilterChange, type, placeholder }) => {
-  console.log(filter);
   return (
     <input
       type={type}

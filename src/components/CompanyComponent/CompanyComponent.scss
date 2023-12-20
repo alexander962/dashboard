@@ -1,0 +1,14 @@
+.svg-inc__active {
+  svg {
+    path {
+      stroke: white;
+    }
+
+    &:hover {
+      path {
+        stroke: #A08DFF;
+        transition: all .3s ease;
+      }
+    }
+  }
+}

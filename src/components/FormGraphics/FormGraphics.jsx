@@ -32,7 +32,6 @@ const FormGraphics = () => {
   const dropdownOptions = ['Production', 'Revenue', 'Expenses'];
 
   const addFilter = newFilter => {
-    console.log(newFilter);
     setFilters(newFilter);
   };
 

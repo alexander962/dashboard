@@ -34,7 +34,7 @@ const Table = () => {
                   )}
                 </td>
                 <td className="table-element underline">
-                  <NavLink to="/">{item.action}</NavLink>
+                  <NavLink to={`/company/${index + 1}`}>{item.action}</NavLink>
                 </td>
               </tr>
             ))}
