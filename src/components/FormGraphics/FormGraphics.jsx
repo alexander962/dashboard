@@ -4,7 +4,7 @@ import SearchIcon from '../ui/icons/SearchIcon';
 import { useStateContext } from '../../context/ContextProvider';
 import FiltersModal from '../FiltresModal/FiltersModal';
 
-const FormGraphics = () => {
+const FormGraphics = ({ selectedField, setSelectedField }) => {
   const { tableDisplay, setTableDisplay } = useStateContext();
   const [search, setSearch] = useState('');
   const [showFiltersModal, setShowFiltersModal] = useState(false);
@@ -21,7 +21,6 @@ const FormGraphics = () => {
   const [filterStatus, setFilterStatus] = useState('Active Status');
   const [showDropdownStatus, setShowDropdownStatus] = useState(false);
 
-  const [selectedField, setSelectedField] = useState('Production');
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleFieldSelect = field => {
@@ -144,7 +143,7 @@ const FormGraphics = () => {
           </button>
 
           {showDropdown && (
-            <div className="absolute mt-1 w-full bg-[#242424] rounded px-2 py-1">
+            <div className="absolute mt-1 w-full bg-[#242424] rounded px-2 py-1 z-20">
               {dropdownOptions.map(option => (
                 <div
                   key={option}

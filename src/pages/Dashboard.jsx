@@ -6,9 +6,10 @@ import FormGraphics from '../components/FormGraphics/FormGraphics';
 import { useStateContext } from '../context/ContextProvider';
 import Table from '../components/Table/Table';
 import ModalMobileMenu from '../components/ModalMobileMenu/ModalMobileMenu';
+import GraphBlock from '../components/GraphBlocks/GraphBlocks';
 
 const Dashboard = () => {
-  const { tableDisplay } = useStateContext();
+  const { tableDisplay, selectedField, setSelectedField } = useStateContext();
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar />
@@ -19,8 +20,8 @@ const Dashboard = () => {
         <Header />
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
           <Title title="Dashboard" />
-          <FormGraphics />
-          {tableDisplay ? <Table /> : <div>Graphic</div>}
+          <FormGraphics selectedField={selectedField} setSelectedField={setSelectedField} />
+          {tableDisplay ? <Table /> : <GraphBlock selectedField={selectedField} setSelectedField={setSelectedField} />}
         </main>
       </div>
     </div>

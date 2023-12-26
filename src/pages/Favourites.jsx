@@ -6,6 +6,7 @@ import FormGraphics from '../components/FormGraphics/FormGraphics';
 import Table from '../components/Table/Table';
 import { useStateContext } from '../context/ContextProvider';
 import ModalMobileMenu from '../components/ModalMobileMenu/ModalMobileMenu';
+import GraphBlock from '../components/GraphBlocks/GraphBlocks';
 
 const Favourites = () => {
   const { tableDisplay } = useStateContext();
@@ -20,7 +21,7 @@ const Favourites = () => {
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
           <Title title="Favourites" />
           <FormGraphics />
-          {tableDisplay ? <Table /> : <div>Graphic</div>}
+          {tableDisplay ? <Table /> : <GraphBlock />}
         </main>
       </div>
     </div>
