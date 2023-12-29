@@ -20,7 +20,7 @@ const Favourites = () => {
         <Header />
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
           <Title title="Favourites" />
-          <FormGraphics />
+          <FormGraphics selectedField={selectedField} setSelectedField={setSelectedField} />
           {tableDisplay ? <Table /> : <GraphBlock selectedField={selectedField} setSelectedField={setSelectedField} />}
         </main>
       </div>
