@@ -9,7 +9,7 @@ import ModalMobileMenu from '../components/ModalMobileMenu/ModalMobileMenu';
 import GraphBlock from '../components/GraphBlocks/GraphBlocks';
 
 const Favourites = () => {
-  const { tableDisplay } = useStateContext();
+  const { tableDisplay, selectedField, setSelectedField } = useStateContext();
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar />
@@ -21,7 +21,7 @@ const Favourites = () => {
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
           <Title title="Favourites" />
           <FormGraphics />
-          {tableDisplay ? <Table /> : <GraphBlock />}
+          {tableDisplay ? <Table /> : <GraphBlock selectedField={selectedField} setSelectedField={setSelectedField} />}
         </main>
       </div>
     </div>

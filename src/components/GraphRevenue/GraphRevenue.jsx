@@ -144,8 +144,12 @@ const GraphRevenue = ({ data, title, percent, index }) => {
       legend: {
         display: true,
         position: 'bottom',
+        align: 'start',
         labels: {
           usePointStyle: true,
+          pointStyle: 'circle',
+          position: 'start',
+          padding: 30,
         },
       },
       title: {
