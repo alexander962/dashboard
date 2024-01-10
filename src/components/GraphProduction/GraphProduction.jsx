@@ -11,12 +11,12 @@ import {
   Filler,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { arrowDown, arrowGreen, arrowRed } from '../../assets/images';
+import { arrowDown, arrowGreen, arrowRed, closeGraphIcon } from '../../assets/images';
 import { NavLink } from 'react-router-dom';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
-const GraphProduction = ({ dataMonth, dataDay, dataYear, title, percent, index }) => {
+const GraphProduction = ({ dataMonth, dataDay, dataYear, title, percent, index, deleteGraph, isFavourite }) => {
   const [showDropdownGraph, setShowDropdownGraph] = useState(false);
   const [selectedField, onFieldSelect] = useState('Year');
   const [selectData, setSelectData] = useState(dataYear);
@@ -89,7 +89,12 @@ const GraphProduction = ({ dataMonth, dataDay, dataYear, title, percent, index }
   };
 
   return (
-    <div className="bg-table-bg rounded-2xl px-16px py-24px">
+    <div className="relative bg-table-bg rounded-2xl px-0 py-[24px]">
+      {deleteGraph && isFavourite && (
+        <div className="absolute right-[-10px] top-[-20px] z-50 cursor-pointer">
+          <img src={closeGraphIcon} alt="" />
+        </div>
+      )}
       <div className="flex justify-between items-center px-4 py-2">
         <div className="flex items-center justify-start gap-[10px]">
           {percent.includes('-') ? <img src={arrowRed} alt="" /> : <img src={arrowGreen} alt="" />}
@@ -100,15 +105,15 @@ const GraphProduction = ({ dataMonth, dataDay, dataYear, title, percent, index }
 
         <div className="relative">
           <button
-            className="flex items-center gap-[12px] px-[10px] py-[5px] border border-transparent bg-gray-bg rounded relative focus:border-[#454545]"
+            className="flex items-center gap-[12px] px-[10px] py-[5px] border border-[#2E2E2E] bg-transparent rounded relative focus:border-[#454545]"
             onClick={() => setShowDropdownGraph(!showDropdownGraph)}
           >
-            <span className="text-white text-[16px] leading-[23px]">{selectedField}</span>
+            <span className="text-white text-[12px] leading-[14px] mr-4">{selectedField}</span>
             <img src={arrowDown} alt="" />
           </button>
 
           {showDropdownGraph && (
-            <div className="absolute mt-1 w-full bg-[#242424] rounded px-2 py-1">
+            <div className="absolute mt-1 w-full bg-[#020202] rounded px-2 py-1">
               {dropdownOptions.map(option => (
                 <div
                   key={option}

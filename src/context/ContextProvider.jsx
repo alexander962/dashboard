@@ -14,6 +14,8 @@ export const ContextProvider = ({ children }) => {
   const [activePlans, setActivePlans] = useState(true);
   const [tableDisplay, setTableDisplay] = useState(false);
   const [selectedField, setSelectedField] = useState('Production');
+  const [editGraphs, setEditGraphs] = useState(false);
+  const [deleteGraph, setDeleteGraph] = useState(false);
 
   useEffect(() => {
     setActiveMenu(width > 1024);
@@ -32,6 +34,10 @@ export const ContextProvider = ({ children }) => {
         setActiveMenuMobile,
         selectedField,
         setSelectedField,
+        editGraphs,
+        setEditGraphs,
+        deleteGraph,
+        setDeleteGraph,
       }}
     >
       {children}

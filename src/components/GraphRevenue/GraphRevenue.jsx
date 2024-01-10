@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { NavLink } from 'react-router-dom';
-import { arrowDown } from '../../assets/images';
+import { arrowDown, closeGraphIcon } from '../../assets/images';
 
-const GraphRevenue = ({ data, title, percent, index }) => {
+const GraphRevenue = ({ data, title, percent, index, deleteGraph, isFavourite }) => {
   const [showDropdownGraph, setShowDropdownGraph] = useState(false);
   const [selectedField, onFieldSelect] = useState('Year');
 
@@ -182,7 +182,12 @@ const GraphRevenue = ({ data, title, percent, index }) => {
   };
 
   return (
-    <div className="bg-table-bg rounded-2xl px-16px py-24px">
+    <div className="relative bg-table-bg rounded-2xl px-16px py-24px">
+      {deleteGraph && isFavourite && (
+        <div className="absolute right-[-10px] top-[-10px] z-50 cursor-pointer">
+          <img src={closeGraphIcon} alt="" />
+        </div>
+      )}
       <div className="flex justify-between items-center px-4 py-2">
         <div className="text-white px-[16px] text-[16px]">{title}</div>
         <div className="relative">

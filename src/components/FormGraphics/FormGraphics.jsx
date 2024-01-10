@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { arrowDown, closeIcon, filtersIcon, viewGraphIcon, viewIcon } from '../../assets/images';
+import { arrowDown, closeIcon, editIcon, filtersIcon, viewGraphIcon, viewIcon } from '../../assets/images';
 import SearchIcon from '../ui/icons/SearchIcon';
 import { useStateContext } from '../../context/ContextProvider';
 import FiltersModal from '../FiltresModal/FiltersModal';
 
-const FormGraphics = ({ selectedField, setSelectedField }) => {
-  const { tableDisplay, setTableDisplay } = useStateContext();
+const FormGraphics = ({ selectedField, setSelectedField, isFavourite }) => {
+  const { tableDisplay, setTableDisplay, deleteGraph, setDeleteGraph } = useStateContext();
   const [search, setSearch] = useState('');
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [filters, setFilters] = useState([]);
@@ -87,6 +87,19 @@ const FormGraphics = ({ selectedField, setSelectedField }) => {
             </span>
             View
           </button>
+
+          {isFavourite && (
+            <button
+              className="flex items-center px-8 py-4 bg-btn-active rounded text-white text-[16px] leading-[22px] border border-transparent
+             transition-all duration-300 hover:bg-btn-hover"
+              onClick={() => setDeleteGraph(!deleteGraph)}
+            >
+              <span className="mr-[12px] h-[24px] w-[24px]">
+                <img src={editIcon} alt="" className="h-[20px] w-[20px]" />
+              </span>
+              Edit
+            </button>
+          )}
         </div>
       </div>
 

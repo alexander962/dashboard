@@ -9,6 +9,7 @@ import Title from '../components/Title/Title';
 import CompanyComponent from '../components/CompanyComponent/CompanyComponent';
 import ArrowBack from '../components/ui/icons/ArrowBack';
 import AddFavoriteIcon from '../components/ui/icons/AddFavoriteIcon';
+import { useStateContext } from '../context/ContextProvider';
 
 const override = css`
   display: block;
@@ -19,6 +20,7 @@ const DynamicComponent = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { activeMenu } = useStateContext();
 
   useEffect(() => {
     // Simulating API call with a timeout
@@ -46,7 +48,9 @@ const DynamicComponent = () => {
       <Sidebar />
       <ModalMobileMenu />
       <div
-        className={`bg-main-bg min-h-screen w-full ml-[240px] bg-main-bg px-[24px] max-[1024px]:ml-[0] max-[1024px]:px-[0]`}
+        className={`bg-main-bg min-h-screen w-full ${
+          activeMenu ? 'ml-[240px]' : 'ml-[102px] transition-all duration-300'
+        } bg-main-bg px-[24px] max-[1024px]:ml-[0] max-[1024px]:px-[0]`}
       >
         <Header />
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">

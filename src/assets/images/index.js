@@ -25,6 +25,8 @@ import editeIcon from './edite-circle.svg';
 import increaseIcon from './increase.svg';
 import detailImg1 from './detail-img-1.png';
 import detailImg2 from './detail-img-2.png';
+import editIcon from './edit-icon.svg';
+import closeGraphIcon from './close-graph-icon.svg';
 
 export {
   eye,
@@ -54,4 +56,6 @@ export {
   increaseIcon,
   detailImg1,
   detailImg2,
+  editIcon,
+  closeGraphIcon,
 };

@@ -9,12 +9,14 @@ import ProfileForm from '../components/Profile/ProfileForm/ProfileForm';
 import SecurityForm from '../components/Profile/SecurityForm/SecurityForm';
 import ProfileInfo from '../components/Profile/ProfileInfo/ProfileInfo';
 import { useForm } from 'react-hook-form';
+import { useStateContext } from '../context/ContextProvider';
 
 const Profile = () => {
   const [edit, setEdit] = useState(false);
   const [activeTab, setActiveTab] = useState('Profile');
   const [name, setName] = useState('Alex Sham');
   const [email, setEmail] = useState('alex@gmail.com');
+  const { activeMenu } = useStateContext();
   const {
     register,
     handleSubmit,
@@ -42,7 +44,9 @@ const Profile = () => {
       <Sidebar />
       <ModalMobileMenu />
       <div
-        className={`bg-main-bg min-h-screen w-full ml-[240px] bg-main-bg px-[24px] max-[1024px]:ml-[0] max-[1024px]:px-[0]`}
+        className={`bg-main-bg min-h-screen w-full ${
+          activeMenu ? 'ml-[240px]' : 'ml-[102px] transition-all duration-300'
+        } bg-main-bg px-[24px] max-[1024px]:ml-[0] max-[1024px]:px-[0]`}
       >
         <Header />
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
