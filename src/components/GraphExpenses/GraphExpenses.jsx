@@ -215,7 +215,7 @@ const GraphExpenses = ({ data, title, index, deleteGraph, isFavourite }) => {
   };
 
   return (
-    <div className="relative bg-table-bg rounded-2xl px-16px py-24px">
+    <div className="relative bg-table-bg rounded-2xl px-0 py-[24px]">
       {deleteGraph && isFavourite && (
         <div className="absolute right-[-10px] top-[-10px] z-50 cursor-pointer">
           <img src={closeGraphIcon} alt="" />
@@ -225,10 +225,10 @@ const GraphExpenses = ({ data, title, index, deleteGraph, isFavourite }) => {
         <div className="text-white px-[16px] text-[16px]">{title}</div>
         <div className="relative">
           <button
-            className="flex items-center gap-[12px] px-[10px] py-[5px] border border-transparent bg-gray-bg rounded relative focus:border-[#454545]"
+            className="flex items-center gap-[12px] px-[10px] py-[5px] border border-[#2E2E2E] bg-transparent rounded relative focus:border-[#454545]"
             onClick={() => setShowDropdownGraph(!showDropdownGraph)}
           >
-            <span className="text-white text-[16px] leading-[23px]">{selectedField}</span>
+            <span className="text-white text-[12px] leading-[14px] mr-4">{selectedField}</span>
             <img src={arrowDown} alt="" />
           </button>
 
@@ -251,7 +251,7 @@ const GraphExpenses = ({ data, title, index, deleteGraph, isFavourite }) => {
         </div>
       </div>
       <NavLink to={`/company/${index}`}>
-        <Line data={getChartData()} options={options} />
+        <Line data={getChartData()} options={options} className="max-h-[300px]" />
       </NavLink>
     </div>
   );

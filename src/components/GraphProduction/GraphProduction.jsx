@@ -132,7 +132,7 @@ const GraphProduction = ({ dataMonth, dataDay, dataYear, title, percent, index, 
       </div>
       <div className="text-white px-[16px] mb-[13px] text-[16px]">{title}</div>
       <NavLink to={`/company/${index}`}>
-        <Line data={chartData} options={options} />
+        <Line data={chartData} options={options} className="max-h-[300px]" />
       </NavLink>
     </div>
   );

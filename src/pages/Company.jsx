@@ -10,6 +10,10 @@ import CompanyComponent from '../components/CompanyComponent/CompanyComponent';
 import ArrowBack from '../components/ui/icons/ArrowBack';
 import AddFavoriteIcon from '../components/ui/icons/AddFavoriteIcon';
 import { useStateContext } from '../context/ContextProvider';
+import GraphProduction from '../components/GraphProduction/GraphProduction';
+import { articleDataProduction, articleDataRevenue, articleDataExpenses } from '../data/articleData';
+import GraphRevenue from '../components/GraphRevenue/GraphRevenue';
+import GraphExpenses from '../components/GraphExpenses/GraphExpenses';
 
 const override = css`
   display: block;
@@ -75,7 +79,36 @@ const DynamicComponent = () => {
               />
             </div>
           ) : (
-            <CompanyComponent />
+            <div>
+              <CompanyComponent />
+              <div className="my-4">
+                <GraphProduction
+                  dataMonth={articleDataProduction?.dataMonth}
+                  dataYear={articleDataProduction?.dataYear}
+                  dataDay={articleDataProduction?.dataDay}
+                  title={articleDataProduction?.label}
+                  percent={articleDataProduction?.percent}
+                />
+              </div>
+              <div className="flex justify-between items-center gap-[24px] max-[769px]:flex-col">
+                <div className="w-1/2 max-[769px]:w-full">
+                  <GraphRevenue
+                    data={articleDataRevenue}
+                    key={articleDataRevenue}
+                    title={articleDataRevenue?.label}
+                    percent={articleDataRevenue?.percent}
+                  />
+                </div>
+                <div className="w-1/2 max-[769px]:w-full">
+                  <GraphExpenses
+                    data={articleDataExpenses}
+                    key={articleDataExpenses}
+                    title={articleDataExpenses.label}
+                    percent={articleDataExpenses.percent}
+                  />
+                </div>
+              </div>
+            </div>
           )}
         </main>
       </div>
