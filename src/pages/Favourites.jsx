@@ -58,7 +58,6 @@ const Favourites = () => {
   };
 
   const handleDeleteGraph = graphId => {
-    console.log(graphId);
     const updatedGraphsData = graphsData.filter(graph => graph?.id !== graphId);
     setGraphsData(updatedGraphsData);
   };
