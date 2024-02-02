@@ -28,7 +28,7 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite }) => {
     setShowDropdown(false);
   };
 
-  const dropdownOptions = ['Production', 'Revenue', 'Expenses'];
+  const dropdownOptions = ['Production', 'Processed', 'Costs'];
 
   const addFilter = newFilter => {
     setFilters(newFilter);

@@ -10,13 +10,15 @@ import SecurityForm from '../components/Profile/SecurityForm/SecurityForm';
 import ProfileInfo from '../components/Profile/ProfileInfo/ProfileInfo';
 import { useForm } from 'react-hook-form';
 import { useStateContext } from '../context/ContextProvider';
+import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
   const [edit, setEdit] = useState(false);
   const [activeTab, setActiveTab] = useState('Profile');
-  const [name, setName] = useState('Alex Sham');
-  const [email, setEmail] = useState('alex@gmail.com');
   const { activeMenu } = useStateContext();
+  const { userData, userToken, setUserData } = useAuth();
   const {
     register,
     handleSubmit,
@@ -25,18 +27,66 @@ const Profile = () => {
     reset,
   } = useForm();
 
-  const handleSaveName = data => {
-    const { name, email } = data;
-    setName(name);
-    setEmail(email);
-    setEdit(false);
-    reset();
+  const handleSaveName = async data => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/users`,
+        {
+          fullName: data.name,
+          email: data.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200 || response.status === 204) {
+        setUserData(response.data);
+        setEdit(false);
+        reset();
+      } else {
+        console.error('Failed to update user data');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
-  const handleSavePassword = data => {
-    // const { confirmPassword, password, passwordPrev } = data;
-    setEdit(false);
-    reset();
+  const handleSavePassword = async data => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    console.log(data);
+    const { name, email, password, passwordPrev } = data;
+
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/users`,
+        {
+          fullName: name,
+          email: email,
+          password: passwordPrev,
+          newPassword: password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200 || response.status === 204) {
+        setUserData(response.data);
+        setEdit(false);
+        reset();
+      } else {
+        console.error('Failed to update user data');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -62,7 +112,12 @@ const Profile = () => {
                   <TabsProfile activeTab={activeTab} onTabChange={setActiveTab} />
                   {activeTab === 'Profile' ? (
                     <form onSubmit={handleSubmit(data => handleSaveName(data))}>
-                      <ProfileForm errors={errors} register={register} email={email} name={name} />
+                      <ProfileForm
+                        errors={errors}
+                        register={register}
+                        email={userData.email}
+                        name={userData.fullName}
+                      />
                     </form>
                   ) : (
                     <form onSubmit={handleSubmit(data => handleSavePassword(data))}>
@@ -71,7 +126,7 @@ const Profile = () => {
                   )}
                 </div>
               ) : (
-                <ProfileInfo name={name} email={email} />
+                <ProfileInfo name={userData.fullName} email={userData.email} />
               )}
             </div>
             <div className="max-[769px]:flex max-[769px]:w-full max-[769px]:mb-[22px]">

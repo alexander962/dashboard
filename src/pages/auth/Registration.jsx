@@ -4,6 +4,9 @@ import { useForm } from 'react-hook-form';
 import EyeIcon from '../../components/ui/icons/EyeIcon';
 import NoneEyeIcon from '../../components/ui/icons/NoneEyeIcon';
 import { validEmail, validPassword } from './login.constants';
+import { useAuth } from '../../context/AuthContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -15,12 +18,42 @@ const Registration = () => {
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const { login, setUserData } = useAuth();
 
   const password = watch('password', '');
-  // const confirmPassword = watch('confirmPassword', '');
 
-  const onSubmit = data => {
-    navigate('/');
+  const onSubmit = async data => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await axios.post(`${apiUrl}/auth/register`, {
+        fullName: data.name,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        console.log('res', response);
+        const { userId, token } = response.data;
+        const userResponse = await axios.get(`${apiUrl}/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const userData = userResponse.data;
+        console.log('userData', userData);
+        setUserData(userData);
+        login(token, userData);
+        navigate('/');
+      } else {
+        console.error('Registration failed');
+      }
+    } catch (error) {
+      console.error('Error during registration', error);
+      if (error.response && error.response.status === 400) {
+        toast.error('This email is already in use');
+      }
+    }
   };
 
   const togglePasswordVisibility = () => {

@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
-import { avatar, editeIcon } from '../../../assets/images';
+import React from 'react';
+import { avatarExp, editeIcon } from '../../../assets/images';
+import axios from 'axios';
+import { useAuth } from '../../../context/AuthContext';
 
 const AvatarUpload = () => {
-  const [imageSrc, setImageSrc] = useState(null);
+  const { userToken, userData, avatar, setAvatar, isImageLoaded } = useAuth();
 
-  const handleImageChange = event => {
+  const handleImageChange = async event => {
     const file = event.target.files[0];
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const formData = new FormData();
+    formData.append('image', file);
 
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
-        setImageSrc(reader.result);
+      reader.onload = async () => {
+        try {
+          const response = await axios.post(`${apiUrl}/users`, formData, {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          });
+
+          console.log(response);
+          if (response.status === 200 || response.status === 201) {
+            const timestamp = new Date().getTime();
+            setAvatar(`${process.env.REACT_APP_URL}/${userData?.id}?t=${timestamp}`);
+          }
+        } catch (error) {
+          console.error(error);
+        }
       };
+
       reader.readAsDataURL(file);
     }
   };
@@ -20,17 +40,17 @@ const AvatarUpload = () => {
     <div>
       <label
         className={`relative cursor-pointer w-[158px] h-[158px] inline-block rounded-full ${
-          imageSrc ? '' : 'bg-gray-200'
+          isImageLoaded ? '' : 'bg-gray-200'
         }`}
       >
-        {imageSrc ? (
+        {isImageLoaded ? (
           <>
-            <img className="w-[100%] h-[158px] rounded-full object-cover" src={imageSrc} alt="Selected avatar" />
+            <img className="w-[100%] h-[158px] rounded-full object-cover" src={avatar} alt="Selected avatar" />
             <img src={editeIcon} alt="" className="absolute bottom-[10px] right-[15px]" />
           </>
         ) : (
           <div className="relative cursor-pointer w-[158px] h-[158px] rounded-full flex items-center justify-center">
-            <img src={avatar} alt="Choose an avatar" />
+            <img src={avatarExp} alt="Choose an avatar" />
             <img src={editeIcon} alt="" className="absolute bottom-[10px] right-[15px]" />
           </div>
         )}

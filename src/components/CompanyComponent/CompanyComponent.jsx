@@ -56,56 +56,56 @@ const CompanyComponent = ({ data }) => {
              max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
             >
               <span className="text-[#A0A0A0] text-[16px]">Primary Commodity</span>
-              <span className="text-white text-[16px]">Nickel</span>
+              <span className="text-white text-[16px]">{data?.primaryCommodity}</span>
             </div>
             <div
               className="grid grid-cols-2 border-b border-[#313131] mb-[11px] max-[769px]:grid-cols-1
              max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
             >
               <span className="text-[#A0A0A0] text-[16px]">Development Stage</span>
-              <span className="text-white text-[16px]">Operating</span>
+              <span className="text-white text-[16px]">{data?.developmentStage}</span>
             </div>
             <div
               className="grid grid-cols-2 border-b border-[#313131] mb-[11px] max-[769px]:grid-cols-1
              max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
             >
               <span className="text-[#A0A0A0] text-[16px]">Activity Status</span>
-              <span className="text-white text-[16px]">Active</span>
+              <span className="text-white text-[16px]">{data?.activityStatus}</span>
             </div>
             <div
               className="grid grid-cols-2 border-b border-[#313131] mb-[11px] max-[769px]:grid-cols-1
-             max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
+              max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
             >
               <span className="text-[#A0A0A0] text-[16px]">Mine Type</span>
-              <span className="text-white text-[16px]">Open Pit</span>
+              <span className="text-white text-[16px]">{data?.mineType}</span>
             </div>
             <div
               className="grid grid-cols-2 border-b border-[#313131] mb-[11px] max-[769px]:grid-cols-1
-             max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
+              max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
             >
               <span className="text-[#A0A0A0] text-[16px]">List of Commodities</span>
-              <span className="text-white text-[16px]">Nickel</span>
+              <span className="text-white text-[16px]">{data?.listOfCommodities?.join(', ')}</span>
             </div>
             <div
               className="grid grid-cols-2 border-b border-[#313131] mb-[11px] max-[769px]:grid-cols-1
              max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
             >
               <span className="text-[#A0A0A0] text-[16px]">Owner Name</span>
-              <span className="text-white text-[16px]">C.T.P. Construction and Mining Corporation</span>
+              <span className="text-white text-[16px]">{data?.listOfOwners}</span>
             </div>
             <div
               className="grid grid-cols-2 border-b border-[#313131] mb-[11px] max-[769px]:grid-cols-1
              max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
             >
               <span className="text-[#A0A0A0] text-[16px]">Country</span>
-              <span className="text-white text-[16px]">Philippines</span>
+              <span className="text-white text-[16px]">{data?.country}</span>
             </div>
             <div
               className="grid grid-cols-2 border-b border-[#313131] mb-[11px] max-[769px]:grid-cols-1
              max-[769px]:pt-[11px] max-[769px]:pb-[8px] max-[769px]:mb-0"
             >
               <span className="text-[#A0A0A0] text-[16px]">Region</span>
-              <span className="text-white text-[16px]">Surigao del Sur</span>
+              <span className="text-white text-[16px]">{data?.region}</span>
             </div>
             <div
               className="grid grid-cols-2 border-b border-[#313131] mb-[11px] max-[769px]:grid-cols-1

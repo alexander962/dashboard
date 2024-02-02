@@ -1,8 +1,14 @@
 import React from 'react';
 
-const AddFavoriteIcon = () => {
+const AddFavoriteIcon = ({ favorite }) => {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill={favorite ? 'white' : 'none'}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M16.8963 2H6.96853C4.78647 2 3 3.78647 3 5.96853V20.4646C3 22.3149 4.3271 23.106 5.9477 22.2L10.9626 19.4055C11.4986 19.112 12.3663 19.112 12.8895 19.4055L17.9044 22.2C19.525 23.106 20.8521 22.3149 20.8521 20.4646V5.96853C20.8648 3.78647 19.0784 2 16.8963 2Z"
         stroke="white"

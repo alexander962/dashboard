@@ -14,31 +14,64 @@ import GraphProduction from '../components/GraphProduction/GraphProduction';
 import { articleDataProduction, articleDataRevenue, articleDataExpenses } from '../data/articleData';
 import GraphRevenue from '../components/GraphRevenue/GraphRevenue';
 import GraphExpenses from '../components/GraphExpenses/GraphExpenses';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 const override = css`
   display: block;
   margin: 0 auto;
 `;
 
-const DynamicComponent = () => {
+const Company = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { activeMenu } = useStateContext();
+  const { userToken } = useAuth();
+  const [isFavorite, setIsFavorite] = useState(data?.isFavorite);
+
+  const addToFavorites = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    try {
+      const response = await axios.post(`${apiUrl}/favorites/${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      if (response.status === 201 || response.status === 200) {
+        setIsFavorite(true);
+        toast.success('Added to favorites successfully!');
+      } else {
+        toast.error('Failed to add to favorites');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
 
   useEffect(() => {
-    // Simulating API call with a timeout
+    setIsFavorite(data?.isFavorite);
+  }, [data?.isFavorite]);
+
+  useEffect(() => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const fetchDataById = async () => {
       try {
-        // Simulating a delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Simulating data retrieval
-        setData({
-          title: 'Adlay-Cagdianao-Tandawa',
+        const response = await axios.get(`${apiUrl}/mines/get-one/${id}`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
         });
+
+        if (response.status === 200 || response.status === 204) {
+          setData(response?.data);
+        } else {
+          console.error('Failed!!!');
+        }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        toast.error(error?.response?.data?.message);
       } finally {
         setLoading(false);
       }
@@ -62,9 +95,13 @@ const DynamicComponent = () => {
             <NavLink to="/" className="mb-[32px]">
               <ArrowBack />
             </NavLink>
-            <Title title={data?.title} classExtra="max-[769px]:text-[24px]" />
-            <button className="mb-[32px]">
-              <AddFavoriteIcon />
+            <Title title={data?.name} classExtra="max-[769px]:text-[24px]" />
+            <button
+              onClick={addToFavorites}
+              disabled={isFavorite}
+              className={data?.isFavorite ? 'mb-[32px] favorite-company' : 'mb-[32px]'}
+            >
+              <AddFavoriteIcon favorite={isFavorite} />
             </button>
           </div>
           {loading ? (
@@ -80,33 +117,57 @@ const DynamicComponent = () => {
             </div>
           ) : (
             <div>
-              <CompanyComponent />
+              <CompanyComponent data={data} />
               <div className="my-4">
                 <GraphProduction
-                  dataMonth={articleDataProduction?.dataMonth}
-                  dataYear={articleDataProduction?.dataYear}
-                  dataDay={articleDataProduction?.dataDay}
-                  title={articleDataProduction?.label}
-                  percent={articleDataProduction?.percent}
+                  data={data}
+                  dataMines={data?.commodityProduction?.reverse()}
+                  // dataMonth={articleDataProduction?.dataMonth}
+                  // dataYear={articleDataProduction?.dataYear}
+                  // dataDay={articleDataProduction?.dataDay}
+                  // title={articleDataProduction?.label}
+                  // percent={articleDataProduction?.percent}
                 />
               </div>
               <div className="flex justify-between items-center gap-[24px] max-[769px]:flex-col">
                 <div className="w-1/2 max-[769px]:w-full">
-                  <GraphRevenue
-                    data={articleDataRevenue}
-                    key={articleDataRevenue}
-                    title={articleDataRevenue?.label}
-                    percent={articleDataRevenue?.percent}
+                  <GraphProduction
+                    data={data}
+                    dataMines={data?.oreProcessed?.reverse()}
+                    // dataMonth={articleDataProduction?.dataMonth}
+                    // dataYear={articleDataProduction?.dataYear}
+                    // dataDay={articleDataProduction?.dataDay}
+                    // title={articleDataProduction?.label}
+                    // percent={articleDataProduction?.percent}
                   />
                 </div>
                 <div className="w-1/2 max-[769px]:w-full">
-                  <GraphExpenses
-                    data={articleDataExpenses}
-                    key={articleDataExpenses}
-                    title={articleDataExpenses.label}
-                    percent={articleDataExpenses.percent}
+                  <GraphProduction
+                    data={data}
+                    dataMines={data?.processingCosts?.reverse()}
+                    // dataMonth={articleDataProduction?.dataMonth}
+                    // dataYear={articleDataProduction?.dataYear}
+                    // dataDay={articleDataProduction?.dataDay}
+                    // title={articleDataProduction?.label}
+                    // percent={articleDataProduction?.percent}
                   />
                 </div>
+                {/*  <div className="w-1/2 max-[769px]:w-full">*/}
+                {/*    <GraphRevenue*/}
+                {/*      data={articleDataRevenue}*/}
+                {/*      key={articleDataRevenue}*/}
+                {/*      title={articleDataRevenue?.label}*/}
+                {/*      percent={articleDataRevenue?.percent}*/}
+                {/*    />*/}
+                {/*  </div>*/}
+                {/*  <div className="w-1/2 max-[769px]:w-full">*/}
+                {/*    <GraphExpenses*/}
+                {/*      data={articleDataExpenses}*/}
+                {/*      key={articleDataExpenses}*/}
+                {/*      title={articleDataExpenses?.label}*/}
+                {/*      percent={articleDataExpenses?.percent}*/}
+                {/*    />*/}
+                {/*  </div>*/}
               </div>
             </div>
           )}
@@ -116,4 +177,4 @@ const DynamicComponent = () => {
   );
 };
 
-export default DynamicComponent;
+export default Company;

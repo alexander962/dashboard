@@ -5,9 +5,11 @@ import { NavLink } from 'react-router-dom';
 import './ModalMobileMenu.scss';
 import DashboardIcon from '../ui/icons/DashboardIcon';
 import FavouritesIcon from '../ui/icons/FavouritesIcon';
+import { useAuth } from '../../context/AuthContext';
 
 const ModalMobileMenu = () => {
   const { activeMenuMobile, setActiveMenuMobile, activePlans, setActivePlans } = useStateContext();
+  const { logout } = useAuth();
   const activeLink = `flex item-center gap-4 px-4 py-3 rounded-[4px] mx-4 mb-2 text-white bg-btn-active svg-active text-[16px] transition-all duration-300`;
   const normalLink = `flex item-center gap-4 px-4 py-3 rounded-[4px] mx-4 mb-2 text-white text-[16px] font-semibold hover:bg-[#353535] transition-all duration-300`;
 
@@ -73,7 +75,9 @@ const ModalMobileMenu = () => {
               <NavLink to={'/authorization'}>
                 <button className="flex-center-center w-full block gap-[19px] py-2 mb-[24px] rounded hover:bg-[#353535] max-[1024px]:justify-start max-[1024px]:pl-4">
                   <img src={outIcon} alt="" />
-                  <span className="text-[16px] leading-[23px] text-white">Log out</span>
+                  <span className="text-[16px] leading-[23px] text-white" onClick={logout}>
+                    Log out
+                  </span>
                 </button>
               </NavLink>
             </div>

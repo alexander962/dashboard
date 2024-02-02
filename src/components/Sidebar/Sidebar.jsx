@@ -1,13 +1,17 @@
 import React from 'react';
-import { arrowLeft, arrowRight, closeIcon, outIcon, planIcon } from '../../assets/images';
+import { arrowLeft, arrowRight, closeIcon, outIcon, planIcon, updateIcon } from '../../assets/images';
 import { useStateContext } from '../../context/ContextProvider';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.scss';
 import DashboardIcon from '../ui/icons/DashboardIcon';
 import FavouritesIcon from '../ui/icons/FavouritesIcon';
+import { useAuth } from '../../context/AuthContext';
+import UsersIcon from '../ui/icons/UsersIcon';
+import CompaniesIcon from '../ui/icons/CompaniesIcon';
 
 const Sidebar = () => {
   const { activeMenu, setActiveMenu, activePlans, setActivePlans } = useStateContext();
+  const { logout, userData } = useAuth();
   const activeLink = `flex item-center ${
     !activeMenu && 'justify-center'
   } gap-4 px-4 py-3 rounded-[4px] mx-4 mb-2 text-white bg-btn-active svg-active text-[16px] transition-all duration-300`;
@@ -33,14 +37,37 @@ const Sidebar = () => {
               </button>
             </div>
             <div className="mt-[102px]">
-              <NavLink to={'/'} className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                <DashboardIcon />
-                {activeMenu && <span>Dashboard</span>}
-              </NavLink>
-              <NavLink to={'/favourites'} className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                <FavouritesIcon />
-                {activeMenu && <span>Favourites</span>}
-              </NavLink>
+              {userData?.role !== 'admin' ? (
+                <>
+                  <NavLink to={'/'} className={({ isActive }) => (isActive ? activeLink : normalLink)}>
+                    <DashboardIcon />
+                    {activeMenu && <span>Dashboard</span>}
+                  </NavLink>
+                  <NavLink to={'/favourites'} className={({ isActive }) => (isActive ? activeLink : normalLink)}>
+                    <FavouritesIcon />
+                    {activeMenu && <span>Favourites</span>}
+                  </NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink to={'/dashboard-admin'} className={({ isActive }) => (isActive ? activeLink : normalLink)}>
+                    <DashboardIcon />
+                    {activeMenu && <span>Dashboard</span>}
+                  </NavLink>
+                  <NavLink to={'/users'} className={({ isActive }) => (isActive ? activeLink : normalLink)}>
+                    <UsersIcon />
+                    {activeMenu && <span>Users</span>}
+                  </NavLink>
+                  <NavLink to={'/update'} className={({ isActive }) => (isActive ? activeLink : normalLink)}>
+                    <img src={updateIcon} alt="update" />
+                    {activeMenu && <span>Updates</span>}
+                  </NavLink>
+                  <NavLink to={'/all-companies'} className={({ isActive }) => (isActive ? activeLink : normalLink)}>
+                    <CompaniesIcon />
+                    {activeMenu && <span>All Companies</span>}
+                  </NavLink>
+                </>
+              )}
             </div>
           </div>
           <div className="w-full">
@@ -63,7 +90,11 @@ const Sidebar = () => {
               <NavLink to={'/authorization'}>
                 <button className="flex-center-center w-full block gap-[19px] py-2 mb-[24px] rounded hover:bg-[#353535]">
                   <img src={outIcon} alt="" />
-                  {activeMenu && <span className="text-[16px] leading-[23px] text-white">Log out</span>}
+                  {activeMenu && (
+                    <span className="text-[16px] leading-[23px] text-white" onClick={logout}>
+                      Log out
+                    </span>
+                  )}
                 </button>
               </NavLink>
             </div>

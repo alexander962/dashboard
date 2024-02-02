@@ -4,6 +4,9 @@ import { useForm } from 'react-hook-form';
 import EyeIcon from '../../components/ui/icons/EyeIcon';
 import NoneEyeIcon from '../../components/ui/icons/NoneEyeIcon';
 import { validEmail, validPassword } from './login.constants';
+import { useAuth } from '../../context/AuthContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -13,9 +16,40 @@ const Auth = () => {
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const { login, setUserData } = useAuth();
 
-  const onSubmit = data => {
-    navigate('/');
+  const onSubmit = async data => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await axios.post(`${apiUrl}/auth/login`, {
+        email: data.email,
+        password: data.password,
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        console.log('res', response);
+        const { userId, token } = response.data;
+        const userResponse = await axios.get(`${apiUrl}/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const userData = userResponse.data;
+        console.log('userData', userData);
+        setUserData(userData);
+        login(token, userData);
+        navigate('/');
+      } else {
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login', error);
+
+      if ((error.response && error.response.status === 401) || (error.response && error.response.status === 500)) {
+        toast.error('Invalid email or password');
+      }
+    }
   };
 
   const togglePasswordVisibility = () => {
