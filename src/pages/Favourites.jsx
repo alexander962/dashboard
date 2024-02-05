@@ -26,10 +26,11 @@ const Favourites = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(50);
   const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState(['', '', '', '', '', '', '', '']);
 
   useEffect(() => {
     getMines();
-  }, [currentPage, perPage]);
+  }, [currentPage, perPage, filters]);
 
   const getMines = async () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -42,6 +43,14 @@ const Favourites = () => {
         params: {
           page: currentPage,
           perPage: perPage,
+          name: filters[0],
+          primaryCommodity: filters[1],
+          developmentStage: filters[2],
+          mineType: filters[3],
+          // listOfCommodities: filters[4],
+          country: filters[5],
+          region: filters[6],
+          // activityStatus: [7],
         },
       });
 
@@ -74,7 +83,13 @@ const Favourites = () => {
         <Header />
         <main className="pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
           <Title title="Favourites" />
-          <FormGraphics selectedField={selectedField} setSelectedField={setSelectedField} isFavourite={true} />
+          <FormGraphics
+            selectedField={selectedField}
+            setSelectedField={setSelectedField}
+            filters={filters}
+            setFilters={setFilters}
+            isFavourite={true}
+          />
           {tableDisplay ? (
             <Table graphsData={graphsData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
           ) : loading ? (
