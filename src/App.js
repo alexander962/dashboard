@@ -15,6 +15,7 @@ import Companies from './pages/Companies';
 import User from './pages/User';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UpdateInfo from './pages/UpdateInfo';
 
 const App = () => {
   return (
@@ -61,6 +62,14 @@ const App = () => {
             element={
               <PrivateRoute role="admin">
                 <Update />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/update-info/:id"
+            element={
+              <PrivateRoute role="admin">
+                <UpdateInfo />
               </PrivateRoute>
             }
           />

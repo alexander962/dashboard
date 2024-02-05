@@ -12,7 +12,7 @@ const DashboardAdmin = () => {
   const { activeMenu } = useStateContext();
   return (
     <div className="flex relative bg-main-bg">
-      <Sidebar />
+      <Sidebar admin={true} />
       <ModalMobileMenu />
       <div
         className={`bg-main-bg min-h-screen w-full ${
