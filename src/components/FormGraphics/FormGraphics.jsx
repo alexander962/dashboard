@@ -73,7 +73,7 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite, filters, s
             </span>
             <span className="mr-[6px]">Filters</span>
             <div className="flex-center-center rounded-full bg-btn-active py-[3px] w-[23px] h-[23px] text-white text-[14px]">
-              {filters.length}
+              {filters.filter(filter => filter.trim() !== '').length}
             </div>
           </button>
 
