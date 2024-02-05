@@ -4,11 +4,10 @@ import SearchIcon from '../ui/icons/SearchIcon';
 import { useStateContext } from '../../context/ContextProvider';
 import FiltersModal from '../FiltresModal/FiltersModal';
 
-const FormGraphics = ({ selectedField, setSelectedField, isFavourite }) => {
+const FormGraphics = ({ selectedField, setSelectedField, isFavourite, filters, setFilters }) => {
   const { tableDisplay, setTableDisplay, deleteGraph, setDeleteGraph } = useStateContext();
   const [search, setSearch] = useState('');
   const [showFiltersModal, setShowFiltersModal] = useState(false);
-  const [filters, setFilters] = useState([]);
   const [filterName, setFilterName] = useState('');
   const [filterCom, setFilterCom] = useState('');
   const [filterDev, setFilterDev] = useState('');
@@ -16,7 +15,7 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite }) => {
   const [filterCommodities, setFilterCommodities] = useState('');
   const [filterCountry, setFilterCountry] = useState('');
   const [filterRegion, setFilterRegion] = useState('');
-  const [filterTime, setFilterTime] = useState('All time');
+  // const [filterTime, setFilterTime] = useState('All time');
   const [showDropdownTime, setShowDropdownTime] = useState(false);
   const [filterStatus, setFilterStatus] = useState('Active Status');
   const [showDropdownStatus, setShowDropdownStatus] = useState(false);
@@ -35,10 +34,15 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite }) => {
   };
 
   const removeFilter = index => {
-    const newFilters = [...filters];
-    newFilters.splice(index, 1);
+    console.log(index);
+    const newFilters = filters.slice();
+    newFilters.splice(index, 1, '');
     setFilters(newFilters);
   };
+
+  // .filter(
+  //     filter => filter.trim() !== '' && filter.trim() !== 'All time' && filter.trim() !== 'Active Status'
+  //   )
 
   return (
     <div>
@@ -122,8 +126,8 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite }) => {
             setFilterCountry={setFilterCountry}
             filterRegion={filterRegion}
             setFilterRegion={setFilterRegion}
-            filterTime={filterTime}
-            setFilterTime={setFilterTime}
+            // filterTime={filterTime}
+            // setFilterTime={setFilterTime}
             showDropdownTime={showDropdownTime}
             setShowDropdownTime={setShowDropdownTime}
             filterStatus={filterStatus}
@@ -136,14 +140,18 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite }) => {
 
       <div className="flex-center-between mt-6">
         <div className="flex items-center gap-[11px] flex-wrap">
-          {filters.map((filter, index) => (
-            <div key={index} className="flex items-center px-[10px] py-[5px] bg-gray-bg rounded">
-              <span className="text-white text-[16px] leading-[23px] mr-[50px]">{filter}</span>
-              <button onClick={() => removeFilter(index)}>
-                <img src={closeIcon} alt="" />
-              </button>
-            </div>
-          ))}
+          {filters?.map((filter, index) => {
+            return (
+              filter && (
+                <div key={index} className="flex items-center px-[10px] py-[5px] bg-gray-bg rounded">
+                  <span className="text-white text-[16px] leading-[23px] mr-[50px]">{filter}</span>
+                  <button onClick={() => removeFilter(index)}>
+                    <img src={closeIcon} alt="" />
+                  </button>
+                </div>
+              )
+            );
+          })}
         </div>
 
         <div className="relative">

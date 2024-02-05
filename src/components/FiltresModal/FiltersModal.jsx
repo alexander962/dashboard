@@ -31,10 +31,10 @@ const FiltersModal = ({
   setFilterCountry,
   filterRegion,
   setFilterRegion,
-  filterTime,
-  setFilterTime,
-  showDropdownTime,
-  setShowDropdownTime,
+  // filterTime,
+  // setFilterTime,
+  // showDropdownTime,
+  // setShowDropdownTime,
   filterStatus,
   setFilterStatus,
   showDropdownStatus,
@@ -49,9 +49,9 @@ const FiltersModal = ({
       filterCommodities,
       filterCountry,
       filterRegion,
-      filterTime,
+      // filterTime,
       filterStatus,
-    ].filter(filter => filter.trim() !== '' && filter.trim() !== 'All time' && filter.trim() !== 'Active Status');
+    ];
     onAddFilter(filters);
     setFilterName('');
     setFilterCom('');
@@ -60,18 +60,18 @@ const FiltersModal = ({
     setFilterCommodities('');
     setFilterCountry('');
     setFilterRegion('');
-    setFilterTime('All time');
+    // setFilterTime('All time');
     setFilterStatus('Active Status');
     onClose();
   };
 
-  const dropdownOptionsTime = ['All time', 'Day', 'Week'];
+  // const dropdownOptionsTime = ['All time', 'Day', 'Week'];
   const dropdownOptionsStatus = ['Active Status', 'Not active status'];
 
-  const handleFieldSelectTime = field => {
-    setFilterTime(field);
-    setShowDropdownTime(false);
-  };
+  // const handleFieldSelectTime = field => {
+  //   setFilterTime(field);
+  //   setShowDropdownTime(false);
+  // };
 
   const handleFieldSelectStatus = field => {
     setFilterStatus(field);
@@ -99,33 +99,33 @@ const FiltersModal = ({
         <Field type="text" filter={filterCountry} onFilterChange={setFilterCountry} placeholder="Country" />
         <Field type="text" filter={filterRegion} onFilterChange={setFilterRegion} placeholder="Region" />
 
-        <div className="relative mb-[12px] z-10">
-          <button
-            className="flex items-center justify-between w-full px-[17px] py-[9px] border border-[#727272]
-             bg-transparent rounded relative focus:border-primary-active"
-            onClick={() => setShowDropdownTime(!showDropdownTime)}
-          >
-            <span className="text-[#939393] text-[16px] leading-[23px]">{filterTime}</span>
-            <img src={arrowDownBig} alt="" />
-          </button>
+        {/*<div className="relative mb-[12px] z-10">*/}
+        {/*<button*/}
+        {/*  className="flex items-center justify-between w-full px-[17px] py-[9px] border border-[#727272]*/}
+        {/*   bg-transparent rounded relative focus:border-primary-active"*/}
+        {/*  onClick={() => setShowDropdownTime(!showDropdownTime)}*/}
+        {/*>*/}
+        {/*  <span className="text-[#939393] text-[16px] leading-[23px]">{filterTime}</span>*/}
+        {/*  <img src={arrowDownBig} alt="" />*/}
+        {/*</button>*/}
 
-          {showDropdownTime && (
-            <div className="absolute w-full bg-[#242424] rounded px-2 py-1">
-              {dropdownOptionsTime.map(option => (
-                <div
-                  key={option}
-                  onClick={() => handleFieldSelectTime(option)}
-                  className={`pb-1 pt-2 pl-1 cursor-pointer border-b border-solid border-[#3C3C3C] text-[16px] 
-                  leading-[22px] hover:${
-                    option === filterTime ? 'bg-transparent' : 'bg-[#3C3C3C]'
-                  } mb-[4px] last:border-none last:mb-0 text-${option === filterTime ? '[#6A6A6A]' : 'white'}`}
-                >
-                  {option}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        {/*{showDropdownTime && (*/}
+        {/*  <div className="absolute w-full bg-[#242424] rounded px-2 py-1">*/}
+        {/*    {dropdownOptionsTime.map(option => (*/}
+        {/*      <div*/}
+        {/*        key={option}*/}
+        {/*        onClick={() => handleFieldSelectTime(option)}*/}
+        {/*        className={`pb-1 pt-2 pl-1 cursor-pointer border-b border-solid border-[#3C3C3C] text-[16px] */}
+        {/*        leading-[22px] hover:${*/}
+        {/*          option === filterTime ? 'bg-transparent' : 'bg-[#3C3C3C]'*/}
+        {/*        } mb-[4px] last:border-none last:mb-0 text-${option === filterTime ? '[#6A6A6A]' : 'white'}`}*/}
+        {/*      >*/}
+        {/*        {option}*/}
+        {/*      </div>*/}
+        {/*    ))}*/}
+        {/*  </div>*/}
+        {/*)}*/}
+        {/*</div>*/}
 
         <div className="relative mb-[12px]">
           <button
