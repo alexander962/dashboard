@@ -21,7 +21,7 @@ const override = css`
 
 const Favourites = () => {
   const { tableDisplay, selectedField, setSelectedField, activeMenu } = useStateContext();
-  const { userToken } = useAuth();
+  const { userToken, userData } = useAuth();
   const [graphsData, setGraphsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(50);
@@ -41,6 +41,7 @@ const Favourites = () => {
           Authorization: `Bearer ${userToken}`,
         },
         params: {
+          userId: userData?.id,
           page: currentPage,
           perPage: perPage,
           name: filters[0],

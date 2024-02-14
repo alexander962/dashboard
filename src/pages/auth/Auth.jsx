@@ -29,16 +29,16 @@ const Auth = () => {
 
       if (response.status === 200 || response.status === 201) {
         console.log('res', response);
-        const { userId, token } = response.data;
+        const { userId, accessToken } = response.data;
         const userResponse = await axios.get(`${apiUrl}/users/${userId}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         });
         const userData = userResponse.data;
         console.log('userData', userData);
         setUserData(userData);
-        login(token, userData);
+        login(accessToken, userData);
         navigate('/');
       } else {
         console.error('Login failed');

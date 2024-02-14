@@ -1,15 +1,17 @@
 import React from 'react';
-import { closeIcon, closeMenuIcon, outIcon, planIcon } from '../../assets/images';
+import { closeIcon, closeMenuIcon, outIcon, planIcon, updateIcon } from '../../assets/images';
 import { useStateContext } from '../../context/ContextProvider';
 import { NavLink } from 'react-router-dom';
 import './ModalMobileMenu.scss';
 import DashboardIcon from '../ui/icons/DashboardIcon';
 import FavouritesIcon from '../ui/icons/FavouritesIcon';
 import { useAuth } from '../../context/AuthContext';
+import UsersIcon from '../ui/icons/UsersIcon';
+import CompaniesIcon from '../ui/icons/CompaniesIcon';
 
 const ModalMobileMenu = () => {
   const { activeMenuMobile, setActiveMenuMobile, activePlans, setActivePlans } = useStateContext();
-  const { logout } = useAuth();
+  const { logout, userData } = useAuth();
   const activeLink = `flex item-center gap-4 px-4 py-3 rounded-[4px] mx-4 mb-2 text-white bg-btn-active svg-active text-[16px] transition-all duration-300`;
   const normalLink = `flex item-center gap-4 px-4 py-3 rounded-[4px] mx-4 mb-2 text-white text-[16px] font-semibold hover:bg-[#353535] transition-all duration-300`;
 
@@ -37,26 +39,65 @@ const ModalMobileMenu = () => {
           </button>
           <div>
             <div className="mt-[98px]">
-              <NavLink
-                to={'/'}
-                className={({ isActive }) => (isActive ? activeLink : normalLink)}
-                onClick={handleClockClose}
-              >
-                <DashboardIcon />
-                <span>Dashboard</span>
-              </NavLink>
-              <NavLink
-                to={'/favourites'}
-                className={({ isActive }) => (isActive ? activeLink : normalLink)}
-                onClick={handleClockClose}
-              >
-                <FavouritesIcon />
-                <span>Favourites</span>
-              </NavLink>
+              {userData?.role !== 'admin' ? (
+                <>
+                  <NavLink
+                    to={'/'}
+                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                    onClick={handleClockClose}
+                  >
+                    <DashboardIcon />
+                    <span>Dashboard</span>
+                  </NavLink>
+                  <NavLink
+                    to={'/favourites'}
+                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                    onClick={handleClockClose}
+                  >
+                    <FavouritesIcon />
+                    <span>Favourites</span>
+                  </NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink
+                    to={'/dashboard-admin'}
+                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                    onClick={handleClockClose}
+                  >
+                    <DashboardIcon />
+                    <span>Dashboard</span>
+                  </NavLink>
+                  <NavLink
+                    to={'/users'}
+                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                    onClick={handleClockClose}
+                  >
+                    <UsersIcon />
+                    <span>Users</span>
+                  </NavLink>
+                  <NavLink
+                    to={'/update'}
+                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                    onClick={handleClockClose}
+                  >
+                    <img src={updateIcon} alt="update" />
+                    <span>Updates</span>
+                  </NavLink>
+                  <NavLink
+                    to={'/all-companies'}
+                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                    onClick={handleClockClose}
+                  >
+                    <CompaniesIcon />
+                    <span>All Companies</span>
+                  </NavLink>
+                </>
+              )}
             </div>
           </div>
           <div className="w-full max-[1024px]:w-[217px]">
-            {activePlans && activeMenuMobile && (
+            {activePlans && activeMenuMobile && userData?.role !== 'admin' && (
               <div className="relative pt-[29px] pb-4 px-4 border border-solid border-[#454545] rounded-2xl mx-4 mb-[41px]">
                 <button onClick={() => setActivePlans(false)} className="absolute top-[20px] right-4">
                   <img src={closeIcon} alt="" />

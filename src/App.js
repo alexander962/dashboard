@@ -118,7 +118,7 @@ const App = () => {
           <Route
             path="/company/:id"
             element={
-              <PrivateRoute role="user">
+              <PrivateRoute>
                 <Company />
               </PrivateRoute>
             }

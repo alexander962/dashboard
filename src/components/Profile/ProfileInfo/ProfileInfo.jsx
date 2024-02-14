@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const ProfileInfo = ({ name, email, user = false }) => {
+const ProfileInfo = ({ name, email, user = false, tariff }) => {
   return (
     <div className={`w-full ${user ? '' : 'max-w-[582px]'}`}>
       <div
@@ -21,9 +21,7 @@ const ProfileInfo = ({ name, email, user = false }) => {
       <div className="profile-row max-[1025px]:grid-cols-1 max-[1025px]:py-[16px] max-[1025px]:pr-[32px] max-[769px]:py-[26px] max-[769px]:pr-0">
         <span className="text-[16px] text-[#757575]">Tariff plan</span>
         <div className="flex items-center max-[769px]:justify-between">
-          <span className="text-[16px] text-white font-bold whitespace-nowrap mr-4 max-[1025px]:mr-10">
-            Trial version
-          </span>
+          <span className="text-[16px] text-white font-bold whitespace-nowrap mr-4 max-[1025px]:mr-10">{tariff}</span>
           {!user && (
             <NavLink to="/plans" className="text-[14px] text-[#B4B4B4] underline whitespace-nowrap">
               View all tariff plans

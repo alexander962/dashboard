@@ -12,6 +12,11 @@ import { avatarExp } from '../assets/images';
 import ProfileInfo from '../components/Profile/ProfileInfo/ProfileInfo';
 import TablePayment from '../components/TablePayment/TablePayment';
 import TableFavourites from '../components/TableFavourites/TableFavourites';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
+import Pagination from '../components/Pagination/Pagination';
+import Table from '../components/Table/Table';
 
 const override = css`
   display: block;
@@ -20,34 +25,91 @@ const override = css`
 
 const User = () => {
   const { activeMenu } = useStateContext();
+  const { userToken } = useAuth();
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [avatar, setAvatar] = useState(`${process.env.REACT_APP_URL}/${data?.id}`);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(50);
+  const [graphsData, setGraphsData] = useState([]);
 
   useEffect(() => {
-    // Simulating API call with a timeout
-    const fetchDataById = async () => {
-      try {
-        // Simulating a delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
+    setIsImageLoaded(false);
 
-        // Simulating data retrieval
-        setData({
-          title: 'Devon Lane',
-        });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
+    const img = new Image();
+    img.onload = () => {
+      setIsImageLoaded(true);
     };
+    img.src = avatar;
+  }, [avatar]);
 
-    fetchDataById();
-  }, [id]);
+  useEffect(() => {
+    getUser();
+    getMines();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setAvatar(`${process.env.REACT_APP_URL}/${data?.id}`);
+    }
+  }, [data]);
+
+  const getUser = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await axios.get(`${apiUrl}/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      if (response.status === 200 || response.status === 204) {
+        setData(response?.data);
+      } else {
+        console.error('Failed!!!');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getMines = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await axios.get(`${apiUrl}/favorites`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+        params: {
+          userId: id,
+          page: currentPage,
+          perPage: perPage,
+        },
+      });
+
+      if (response.status === 200 || response.status === 204) {
+        setGraphsData(response?.data);
+      } else {
+        console.error('Failed!!!');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  console.log('graphsData', graphsData);
 
   return (
     <div className="flex relative bg-main-bg">
-      <Sidebar />
+      <Sidebar admin={true} />
       <ModalMobileMenu />
       <div
         className={`bg-main-bg min-h-screen w-full ${
@@ -76,15 +138,33 @@ const User = () => {
             </div>
             <div className="flex justify-between gap-[20px] items-start bg-gray-bg rounded-2xl py-[32px] px-[24px] max-[769px]:flex-col-reverse">
               <div
-                className="flex items-start gap-[71px] w-full max-[1025px]:items-start max-[1025px]:gap-[32px]
-             max-[769px]:flex-col max-[769px]:w-full max-[769px]:gap-[4px]"
+                className="flex items-center gap-[71px] w-full max-[1025px]:items-start max-[1025px]:gap-[32px]
+             max-[769px]:flex-col max-[769px]:w-full max-[769px]:gap-[4px] max-[769px]:items-center"
               >
-                <img src={avatarExp} alt="Avatar" />
-                <ProfileInfo name={'Name'} email={'test@gmail.com'} user={true} />
+                <div className="w-[158px] h-[158px] rounded-[50%] mr-2">
+                  {isImageLoaded ? (
+                    <img
+                      src={`${process.env.REACT_APP_URL}/${data?.id}`}
+                      alt=""
+                      className="w-[158px] h-[158px] max-w-[158px] rounded-[50%] object-cover"
+                    />
+                  ) : (
+                    <img src={avatarExp} alt="" className="w-full min-w-[158px] object-cover" />
+                  )}
+                </div>
+                <ProfileInfo name={data?.fullName} email={data?.email} tariff={data?.tariff} user={true} />
               </div>
             </div>
-            <TablePayment />
-            <TableFavourites />
+            {/*<TablePayment />*/}
+            {/*<TableFavourites />*/}
+            <Table graphsData={graphsData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <div className="mt-[20px]">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={Math.ceil(graphsData?.count / perPage)}
+                onPageChange={setCurrentPage}
+              />
+            </div>
           </div>
         )}
       </div>

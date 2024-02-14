@@ -8,6 +8,7 @@ const Table = ({ graphsData, currentPage, setCurrentPage }) => {
   return (
     <div>
       <div className="bg-table-bg from-purple-800 to-transparent px-[24px] py-[16px] rounded-[16px] mt-[24px] max-[1025px]:hidden">
+        {/*<h2 className="text-white text-[20px] font-medium mb-[20px]">Favorites</h2>*/}
         <table className="w-full border-collapse table-auto">
           <thead>
             <tr>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Header from '../components/Layout/Header/Header';
 import Title from '../components/Title/Title';
@@ -6,9 +6,43 @@ import { useStateContext } from '../context/ContextProvider';
 import ModalMobileMenu from '../components/ModalMobileMenu/ModalMobileMenu';
 import TableUsers from '../components/TableUsers/TableUsers';
 import SearchIcon from '../components/ui/icons/SearchIcon';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 const Users = () => {
   const { activeMenu } = useStateContext();
+  const { userToken } = useAuth();
   const [search, setSearch] = useState('');
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await axios.get(`${apiUrl}/users`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      if (response.status === 200 || response.status === 204) {
+        setUsers(response?.data);
+      } else {
+        console.error('Failed!!!');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  console.log('users', users);
 
   return (
     <div className="flex relative bg-main-bg">
@@ -36,7 +70,7 @@ const Users = () => {
               <SearchIcon active={search} />
             </button>
           </div>
-          <TableUsers />
+          <TableUsers users={users} />
         </main>
       </div>
     </div>
