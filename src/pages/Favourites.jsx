@@ -26,13 +26,25 @@ const Favourites = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(50);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const [filters, setFilters] = useState(['', '', '', '', '', '', '', '']);
 
-  useEffect(() => {
-    getMines();
-  }, [currentPage, perPage, filters]);
+  const [showDropdownSearch, setShowDropdownSearch] = useState(false);
+  const [dropdownOptionsSearch, setDropdownOptionsSearch] = useState([]);
 
-  const getMines = async () => {
+  const handleDropdownSelect = option => {
+    setSearch(option);
+  };
+
+  const handleDropdownClose = () => {
+    setShowDropdownSearch(false);
+  };
+
+  useEffect(() => {
+    getMines(search);
+  }, [currentPage, perPage, filters, search]);
+
+  const getMines = async search => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
@@ -44,7 +56,7 @@ const Favourites = () => {
           userId: userData?.id,
           page: currentPage,
           perPage: perPage,
-          name: filters[0],
+          name: search ? search : filters[0],
           primaryCommodity: filters[1],
           developmentStage: filters[2],
           mineType: filters[3],
@@ -57,6 +69,7 @@ const Favourites = () => {
 
       if (response.status === 200 || response.status === 204) {
         setGraphsData(response?.data);
+        setDropdownOptionsSearch(response?.data?.map(item => item?.name));
       } else {
         console.error('Failed!!!');
       }
@@ -90,6 +103,13 @@ const Favourites = () => {
             filters={filters}
             setFilters={setFilters}
             isFavourite={true}
+            search={search}
+            setSearch={setSearch}
+            dropdownOptionsSearch={dropdownOptionsSearch}
+            setShowDropdownSearch={setShowDropdownSearch}
+            showDropdownSearch={showDropdownSearch}
+            handleDropdownSelect={handleDropdownSelect}
+            handleDropdownClose={handleDropdownClose}
           />
           {tableDisplay ? (
             <Table graphsData={graphsData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
@@ -127,5 +147,4 @@ const Favourites = () => {
     </div>
   );
 };
-
 export default Favourites;

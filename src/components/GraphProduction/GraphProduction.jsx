@@ -26,8 +26,6 @@ const GraphProduction = ({ data, dataMines, percent, index, deleteGraph, isFavou
   const [chartKey, setChartKey] = useState(0);
   const { userToken } = useAuth();
 
-  console.log('data', data);
-
   useEffect(() => {
     setChartKey(prevKey => prevKey + 1);
     setSelectData(dataMines);
@@ -55,7 +53,7 @@ const GraphProduction = ({ data, dataMines, percent, index, deleteGraph, isFavou
   };
 
   const chartData = {
-    labels: selectData?.map(item => item?.year),
+    labels: selectData?.map(item => item?.year).reverse(),
     datasets: [
       {
         label: '',

@@ -26,15 +26,25 @@ const Companies = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(50);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const [filters, setFilters] = useState(['', '', '', '', '', '', '', '']);
 
+  const [showDropdownSearch, setShowDropdownSearch] = useState(false);
+  const [dropdownOptionsSearch, setDropdownOptionsSearch] = useState([]);
+
+  const handleDropdownSelect = option => {
+    setSearch(option);
+  };
+
+  const handleDropdownClose = () => {
+    setShowDropdownSearch(false);
+  };
+
   useEffect(() => {
-    getMines();
-  }, [currentPage, perPage, filters]);
+    getMines(search);
+  }, [currentPage, perPage, filters, search]);
 
-  console.log(filters);
-
-  const getMines = async () => {
+  const getMines = async (search = '') => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
@@ -45,7 +55,7 @@ const Companies = () => {
         params: {
           page: currentPage,
           perPage: perPage,
-          name: filters[0],
+          name: search ? search : filters[0],
           primaryCommodity: filters[1],
           developmentStage: filters[2],
           mineType: filters[3],
@@ -58,6 +68,7 @@ const Companies = () => {
 
       if (response.status === 200 || response.status === 204) {
         setGraphsData(response?.data);
+        setDropdownOptionsSearch(response?.data?.mines.map(item => item?.name));
       } else {
         console.error('Failed!!!');
       }
@@ -85,6 +96,13 @@ const Companies = () => {
             setSelectedField={setSelectedField}
             filters={filters}
             setFilters={setFilters}
+            search={search}
+            setSearch={setSearch}
+            dropdownOptionsSearch={dropdownOptionsSearch}
+            setShowDropdownSearch={setShowDropdownSearch}
+            showDropdownSearch={showDropdownSearch}
+            handleDropdownSelect={handleDropdownSelect}
+            handleDropdownClose={handleDropdownClose}
           />
           {tableDisplay ? (
             <Table graphsData={graphsData?.mines} currentPage={currentPage} setCurrentPage={setCurrentPage} />

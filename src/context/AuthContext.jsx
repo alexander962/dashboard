@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -12,29 +13,53 @@ export const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(() => {
     return localStorage.getItem('userToken') || null;
   });
+  const [userRefreshToken, setUserRefreshToken] = useState(() => {
+    return localStorage.getItem('userRefreshToken') || null;
+  });
   const [avatar, setAvatar] = useState(`${process.env.REACT_APP_URL}/${userData?.id}`);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const login = (token, userData) => {
+  const login = (token, userData, refreshToken) => {
     setIsAuthenticated(true);
     setUserToken(token);
+    setUserRefreshToken(refreshToken);
     setUserData(userData);
     setAvatar(`${process.env.REACT_APP_URL}/${userData?.id}`);
+
+    // const tokenExpirationTime = 1 * 60 * 1000;
+    // setTimeout(refreshTokenFunc, tokenExpirationTime);
   };
+
+  // const refreshTokenFunc = async () => {
+  //   const apiUrl = process.env.REACT_APP_API_URL;
+  //
+  //   try {
+  //     const response = await axios.get(`${apiUrl}/auth/refresh`);
+  //
+  //     const newToken = response?.data?.token;
+  //     setUserToken(newToken);
+  //     localStorage.setItem('userToken', newToken);
+  //   } catch (error) {
+  //     console.error('Error refreshing token:', error);
+  //   }
+  // };
 
   const logout = () => {
     setIsAuthenticated(false);
     setUserToken(null);
+    setUserRefreshToken(null);
     setUserData(null);
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('userData');
     localStorage.removeItem('userToken');
+    localStorage.removeItem('userRefreshToken');
   };
 
   useEffect(() => {
     localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
     localStorage.setItem('userData', JSON.stringify(userData));
     localStorage.setItem('userToken', userToken);
-  }, [isAuthenticated, userData, userToken]);
+    localStorage.setItem('userRefreshToken', userRefreshToken);
+  }, [isAuthenticated, userData, userToken, userRefreshToken]);
 
   useEffect(() => {
     setIsImageLoaded(false);
@@ -56,6 +81,8 @@ export const AuthProvider = ({ children }) => {
         setUserData,
         userToken,
         setUserToken,
+        userRefreshToken,
+        setUserRefreshToken,
         avatar,
         setAvatar,
         isImageLoaded,

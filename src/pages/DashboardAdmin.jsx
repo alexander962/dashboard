@@ -73,9 +73,6 @@ const DashboardAdmin = () => {
     }
   };
 
-  console.log('graphData', graphData);
-  console.log('users', users);
-
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar admin={true} />

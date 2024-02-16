@@ -59,8 +59,6 @@ const Update = () => {
     }
   };
 
-  console.log('data', data);
-
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar admin={true} />

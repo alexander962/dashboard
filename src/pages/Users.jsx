@@ -9,18 +9,22 @@ import SearchIcon from '../components/ui/icons/SearchIcon';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
+import SearchDropdown from '../components/SearchDropdown/SearchDropdown';
+
 const Users = () => {
   const { activeMenu } = useStateContext();
   const { userToken } = useAuth();
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dropdownOptions, setDropdownOptions] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    getUsers(search);
+  }, [search]);
 
-  const getUsers = async () => {
+  const getUsers = async (searchValue = '') => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
@@ -28,10 +32,14 @@ const Users = () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
+        params: {
+          name: searchValue,
+        },
       });
 
       if (response.status === 200 || response.status === 204) {
         setUsers(response?.data);
+        setDropdownOptions(response?.data.map(user => user?.fullName));
       } else {
         console.error('Failed!!!');
       }
@@ -42,7 +50,13 @@ const Users = () => {
     }
   };
 
-  console.log('users', users);
+  const handleDropdownSelect = option => {
+    setSearch(option);
+  };
+
+  const handleDropdownClose = () => {
+    setShowDropdown(false);
+  };
 
   return (
     <div className="flex relative bg-main-bg">
@@ -65,10 +79,14 @@ const Users = () => {
               placeholder="Search..."
               value={search}
               onChange={e => setSearch(e.target.value)}
+              onFocus={() => setShowDropdown(true)}
             />
             <button className="absolute left-4 top-1/2 transform -translate-y-1/2" disabled={!search}>
               <SearchIcon active={search} />
             </button>
+            {showDropdown && dropdownOptions.length > 0 && search !== '' && (
+              <SearchDropdown options={dropdownOptions} onSelect={handleDropdownSelect} onClose={handleDropdownClose} />
+            )}
           </div>
           <TableUsers users={users} />
         </main>

@@ -22,7 +22,6 @@ const AvatarUpload = () => {
             },
           });
 
-          console.log(response);
           if (response.status === 200 || response.status === 201) {
             const timestamp = new Date().getTime();
             setAvatar(`${process.env.REACT_APP_URL}/${userData?.id}?t=${timestamp}`);

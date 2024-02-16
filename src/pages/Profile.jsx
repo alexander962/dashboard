@@ -58,7 +58,6 @@ const Profile = () => {
 
   const handleSavePassword = async data => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    console.log(data);
     const { name, email, password, passwordPrev } = data;
 
     try {

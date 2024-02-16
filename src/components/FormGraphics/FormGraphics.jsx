@@ -3,10 +3,24 @@ import { arrowDown, closeIcon, editIcon, filtersIcon, viewGraphIcon, viewIcon } 
 import SearchIcon from '../ui/icons/SearchIcon';
 import { useStateContext } from '../../context/ContextProvider';
 import FiltersModal from '../FiltresModal/FiltersModal';
+import SearchDropdown from '../SearchDropdown/SearchDropdown';
 
-const FormGraphics = ({ selectedField, setSelectedField, isFavourite, filters, setFilters }) => {
+const FormGraphics = ({
+  selectedField,
+  setSelectedField,
+  isFavourite,
+  filters,
+  setFilters,
+  search,
+  setSearch,
+  dropdownOptionsSearch,
+  setShowDropdownSearch,
+  showDropdownSearch,
+  handleDropdownSelect,
+  handleDropdownClose,
+}) => {
   const { tableDisplay, setTableDisplay, deleteGraph, setDeleteGraph } = useStateContext();
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [filterName, setFilterName] = useState('');
   const [filterCom, setFilterCom] = useState('');
@@ -19,7 +33,6 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite, filters, s
   const [showDropdownTime, setShowDropdownTime] = useState(false);
   const [filterStatus, setFilterStatus] = useState('Active Status');
   const [showDropdownStatus, setShowDropdownStatus] = useState(false);
-
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleFieldSelect = field => {
@@ -34,7 +47,6 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite, filters, s
   };
 
   const removeFilter = index => {
-    console.log(index);
     const newFilters = filters.slice();
     newFilters.splice(index, 1, '');
     setFilters(newFilters);
@@ -56,10 +68,18 @@ const FormGraphics = ({ selectedField, setSelectedField, isFavourite, filters, s
             placeholder="Search..."
             value={search}
             onChange={e => setSearch(e.target.value)}
+            onFocus={() => setShowDropdownSearch(true)}
           />
           <button className="absolute left-4 top-1/2 transform -translate-y-1/2" disabled={!search}>
             <SearchIcon active={search} />
           </button>
+          {showDropdownSearch && dropdownOptionsSearch.length > 0 && search !== '' && (
+            <SearchDropdown
+              options={dropdownOptionsSearch}
+              onSelect={handleDropdownSelect}
+              onClose={handleDropdownClose}
+            />
+          )}
         </div>
 
         <div className="flex center gap-[12px] max-[768px]:w-full">

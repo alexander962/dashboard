@@ -4,7 +4,6 @@ import { arrowGreen, arrowRed, lossProfitIcon, profitIcon } from '../../assets/i
 import { NavLink } from 'react-router-dom';
 
 const Table = ({ graphsData, currentPage, setCurrentPage }) => {
-  console.log('graphsData', graphsData);
   return (
     <div>
       <div className="bg-table-bg from-purple-800 to-transparent px-[24px] py-[16px] rounded-[16px] mt-[24px] max-[1025px]:hidden">

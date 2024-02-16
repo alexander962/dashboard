@@ -105,8 +105,6 @@ const User = () => {
     }
   };
 
-  console.log('graphsData', graphsData);
-
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar admin={true} />
