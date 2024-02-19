@@ -73,6 +73,16 @@ const DashboardAdmin = () => {
     }
   };
 
+  const newValue = graphData[graphData.length - 1]?.tone;
+  const previousValue = graphData[graphData.length - 2]?.tone;
+  let percent;
+  if (newValue && newValue) {
+    percent = ((newValue - previousValue) / previousValue) * 100;
+    percent = percent.toFixed(2);
+  } else {
+    percent = '0';
+  }
+
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar admin={true} />
@@ -99,7 +109,7 @@ const DashboardAdmin = () => {
               </div>
             ) : (
               <>
-                <GraphProduction data={{ name: 'Production(tonnes)' }} dataMines={graphData} />
+                <GraphProduction data={{ name: 'Production(tonnes)' }} dataMines={graphData} percent={percent} />
                 <GraphUsers usersData={users} />
               </>
             )}

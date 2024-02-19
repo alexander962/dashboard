@@ -12,7 +12,6 @@ const TableUpdate = ({ data }) => {
               <th className="table-element table-title">Update date</th>
               <th className="table-element table-title">New company</th>
               <th className="table-element table-title">Action</th>
-              <th className="table-element table-title">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -23,9 +22,6 @@ const TableUpdate = ({ data }) => {
                 <td className="table-element">{item?.newCompanyCount}</td>
                 <td className="table-element underline">
                   <NavLink to={`/update-info/${item?.id}`}>Detail</NavLink>
-                </td>
-                <td className="table-element">
-                  <span className="px-[11px] py-[2px] border border-[#454545] rounded cursor-pointer">Road back</span>
                 </td>
               </tr>
             ))}
@@ -51,11 +47,6 @@ const TableUpdate = ({ data }) => {
             <div className="py-[14px]">
               <div className="text-[14px] leading-[22px] text-[#C4C4C4] mb-[2px]">New company</div>
               <span className="text-[16px] leading-[22px] font-semibold text-white">{item?.newCompanyCount}</span>
-            </div>
-            <div className="py-[14px]">
-              <button className="text-[16px] text-white font-medium text-center w-full border border-[#454545] rounded py-[6px]">
-                Road back
-              </button>
             </div>
             <div className="mt-1">
               <NavLink to={`/update-info/${index + 1}`}>

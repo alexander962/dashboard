@@ -125,7 +125,17 @@ const GraphProduction = ({ data, dataMines, percent, index, deleteGraph, isFavou
           <img src={closeGraphIcon} alt="" />
         </div>
       )}
-      <div className="text-white px-[16px] mb-[13px] text-[16px]">{data?.name}</div>
+      <div className="flex-center-between pr-[20px] mb-[13px]">
+        <div className="text-white px-[16px] text-[16px]">{data?.name}</div>
+        {percent && percent !== '0' && (
+          <div className="flex items-center justify-start gap-[10px]">
+            {percent.includes('-') ? <img src={arrowRed} alt="" /> : <img src={arrowGreen} alt="" />}
+            <span className={`text-[24px] font-medium ${percent.includes('-') ? 'text-[#FF3700]' : 'text-[#1FC069]'}`}>
+              {percent}%
+            </span>
+          </div>
+        )}
+      </div>
       <NavLink to={`/company/${data?.id}`}>
         <Line key={chartKey} data={chartData} options={options} className="max-h-[300px]" />
       </NavLink>

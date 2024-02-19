@@ -31,6 +31,36 @@ const Company = () => {
   const { userToken } = useAuth();
   const [isFavorite, setIsFavorite] = useState(data?.isFavorite);
 
+  const newValueProduction = data?.commodityProduction[data?.commodityProduction.length - 1].tone;
+  const previousValueProduction = data?.commodityProduction[data?.commodityProduction.length - 2].tone;
+  let percentProduction;
+  if (newValueProduction && newValueProduction) {
+    percentProduction = ((newValueProduction - previousValueProduction) / previousValueProduction) * 100;
+    percentProduction = percentProduction.toFixed(2);
+  } else {
+    percentProduction = '0';
+  }
+
+  const newValueProcessed = data?.oreProcessed[data?.oreProcessed.length - 1].tone;
+  const previousValueProcessed = data?.oreProcessed[data?.oreProcessed.length - 2].tone;
+  let percentProcessed;
+  if (newValueProcessed && newValueProcessed) {
+    percentProcessed = ((newValueProcessed - previousValueProcessed) / previousValueProcessed) * 100;
+    percentProcessed = percentProcessed.toFixed(2);
+  } else {
+    percentProcessed = '0';
+  }
+
+  const newValueCosts = data?.processingCosts[data?.processingCosts.length - 1].tone;
+  const previousValueCosts = data?.processingCosts[data?.processingCosts.length - 2].tone;
+  let percentCosts;
+  if (newValueCosts && newValueCosts) {
+    percentCosts = ((newValueCosts - previousValueCosts) / previousValueCosts) * 100;
+    percentCosts = percentCosts.toFixed(2);
+  } else {
+    percentCosts = '0';
+  }
+
   const addToFavorites = async () => {
     const apiUrl = process.env.REACT_APP_API_URL;
     try {
@@ -121,7 +151,8 @@ const Company = () => {
               <div className="my-4">
                 <GraphProduction
                   data={data}
-                  dataMines={data?.commodityProduction?.reverse()}
+                  dataMines={data?.commodityProduction}
+                  percent={percentProduction}
                   // dataMonth={articleDataProduction?.dataMonth}
                   // dataYear={articleDataProduction?.dataYear}
                   // dataDay={articleDataProduction?.dataDay}
@@ -133,7 +164,8 @@ const Company = () => {
                 <div className="w-1/2 max-[769px]:w-full">
                   <GraphProduction
                     data={data}
-                    dataMines={data?.oreProcessed?.reverse()}
+                    dataMines={data?.oreProcessed}
+                    percent={percentProcessed}
                     // dataMonth={articleDataProduction?.dataMonth}
                     // dataYear={articleDataProduction?.dataYear}
                     // dataDay={articleDataProduction?.dataDay}
@@ -144,7 +176,8 @@ const Company = () => {
                 <div className="w-1/2 max-[769px]:w-full">
                   <GraphProduction
                     data={data}
-                    dataMines={data?.processingCosts?.reverse()}
+                    dataMines={data?.processingCosts}
+                    percent={percentCosts}
                     // dataMonth={articleDataProduction?.dataMonth}
                     // dataYear={articleDataProduction?.dataYear}
                     // dataDay={articleDataProduction?.dataDay}

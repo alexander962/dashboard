@@ -70,6 +70,28 @@ const Update = () => {
     }
   };
 
+  const roadBackHistory = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await axios.post(`${apiUrl}/mines`, null, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      if (response.status === 200 || response.status === 204) {
+        setHistory(response?.data);
+      } else {
+        console.error('Failed!!!');
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar admin={true} />
@@ -80,14 +102,22 @@ const Update = () => {
         } bg-main-bg px-[24px] max-[1024px]:ml-[0] max-[1024px]:px-[0]`}
       >
         <Header />
-        <main className="flex-center-between pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px]">
+        <main className="flex-center-between pt-[22px] pb-[38px] max-[1024px]:px-[32px] max-[768px]:px-[16px] max-[768px]:flex-col max-[768px]:items-start">
           <Title title="Updates" />
-          <button
-            className="text-white font-medium text-[16px] py-[9px] px-[30px] bg-btn-active rounded transition-all duration-300 hover:bg-btn-hover"
-            onClick={getNewHistory}
-          >
-            Update data
-          </button>
+          <div className="mb-[32px]">
+            <button
+              className="text-white font-medium text-[16px] py-[9px] px-[30px] mr-[20px] bg-btn-active rounded transition-all duration-300 hover:bg-btn-hover"
+              onClick={getNewHistory}
+            >
+              Update data
+            </button>
+            <button
+              className="text-white font-medium text-[16px] py-[9px] px-[30px] bg-btn-active rounded transition-all duration-300 hover:bg-btn-hover"
+              onClick={getNewHistory}
+            >
+              Road back
+            </button>
+          </div>
         </main>
         {loading ? (
           <div>
