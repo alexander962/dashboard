@@ -176,7 +176,7 @@ const FormGraphics = ({
 
         <div className="relative">
           <button
-            className="flex items-center gap-[12px] px-[10px] py-[5px] border border-transparent bg-gray-bg rounded relative focus:border-[#454545]"
+            className="flex-center-between gap-[12px] px-[10px] py-[5px] min-w-[138px] border border-transparent bg-gray-bg rounded relative focus:border-[#454545]"
             onClick={() => setShowDropdown(!showDropdown)}
           >
             <span className="text-white text-[16px] leading-[23px]">{selectedField}</span>
