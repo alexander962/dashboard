@@ -53,7 +53,7 @@ const GraphProduction = ({ data, dataMines, percent, index, deleteGraph, isFavou
   };
 
   const chartData = {
-    labels: selectData?.map(item => item?.year).reverse(),
+    labels: selectData?.map(item => item?.year),
     datasets: [
       {
         label: '',
