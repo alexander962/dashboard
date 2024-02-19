@@ -30,6 +30,7 @@ const Registration = () => {
         fullName: data.name,
         email: data.email,
         password: data.password,
+        country: data.country,
       });
 
       if (response.status === 200 || response.status === 201) {
@@ -49,7 +50,9 @@ const Registration = () => {
     } catch (error) {
       console.error('Error during registration', error);
       if (error.response && error.response.status === 400) {
-        toast.error('This email is already in use');
+        toast.error(
+          error?.response?.data?.message ? error?.response?.data?.message : error?.response?.data?.message[0]
+        );
       }
     }
   };
@@ -91,6 +94,25 @@ const Registration = () => {
                   })}
                 />
                 {errors.name && <p className="text-[#E73A5F] mt-2">{errors.name.message}</p>}
+              </div>
+              <div className="w-full mb-[12px]">
+                <input
+                  type="text"
+                  placeholder="Country"
+                  className={`w-full rounded border border-solid border-${
+                    errors.country ? 'error-color' : '[#727272]'
+                  } py-[15px] px-[10px] bg-transparent
+  outline-none text-white text-base font-light tracking-[0.5px] placeholder:text-[#727272] placeholder:text-base placeholder:font-light 
+  placeholder:tracking-[0.5px] focus:${errors.country ? 'border-error-color' : 'border-primary-active'} `}
+                  {...register('country', {
+                    required: 'Country is required.',
+                    pattern: {
+                      value: /^[a-zA-Z]{2,}$/,
+                      message: 'Country must be at least 2 characters long and contain only English letters.',
+                    },
+                  })}
+                />
+                {errors.country && <p className="text-[#E73A5F] mt-2">{errors.country.message}</p>}
               </div>
               <div className="w-full mb-[12px]">
                 <input
