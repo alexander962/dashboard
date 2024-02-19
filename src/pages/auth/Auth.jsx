@@ -116,7 +116,7 @@ const Auth = () => {
                 Login
               </button>
               <p className="text-white text-center text-[14px] leading-[20px] tracking-[0.25px] font-light mt-[24px]">
-                <Link to="/registration" className="underline">
+                <Link to="/authorization" className="underline">
                   Forgot your password?
                 </Link>
               </p>

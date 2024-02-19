@@ -10,6 +10,13 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 import SearchDropdown from '../components/SearchDropdown/SearchDropdown';
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/react';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 const Users = () => {
   const { activeMenu } = useStateContext();
@@ -88,7 +95,20 @@ const Users = () => {
               <SearchDropdown options={dropdownOptions} onSelect={handleDropdownSelect} onClose={handleDropdownClose} />
             )}
           </div>
-          <TableUsers users={users} />
+          {loading ? (
+            <div>
+              <ClipLoader
+                color={'blue'}
+                loading={loading}
+                cssOverride={override}
+                size={150}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
+          ) : (
+            <TableUsers users={users} />
+          )}
         </main>
       </div>
     </div>

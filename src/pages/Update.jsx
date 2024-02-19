@@ -8,6 +8,13 @@ import TableUpdate from '../components/TableUpdate/TableUpdate';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/react';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 const Update = () => {
   const { activeMenu } = useStateContext();
@@ -82,7 +89,20 @@ const Update = () => {
             Update data
           </button>
         </main>
-        <TableUpdate data={history} />
+        {loading ? (
+          <div>
+            <ClipLoader
+              color={'blue'}
+              loading={loading}
+              cssOverride={override}
+              size={150}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+        ) : (
+          <TableUpdate data={history} />
+        )}
       </div>
     </div>
   );
