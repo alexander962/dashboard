@@ -110,6 +110,8 @@ const Company = () => {
     fetchDataById();
   }, [id]);
 
+  console.log('data', data);
+
   return (
     <div className="flex relative bg-main-bg">
       <Sidebar />

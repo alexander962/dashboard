@@ -74,23 +74,6 @@ export const AuthProvider = ({ children }) => {
     img.src = avatar;
   }, [avatar]);
 
-  useEffect(() => {
-    const lastTokenUpdateTime = localStorage.getItem('lastTokenUpdateTime');
-    if (lastTokenUpdateTime) {
-      const currentTime = new Date().getTime();
-      const timeSinceLastUpdate = currentTime - Number(lastTokenUpdateTime);
-      const tokenExpirationTime = 23 * 60 * 60 * 1000;
-      if (timeSinceLastUpdate < tokenExpirationTime) {
-        const timeUntilExpiration = tokenExpirationTime - timeSinceLastUpdate;
-        setTimeout(() => refreshTokenFunc(), timeUntilExpiration);
-      } else {
-        refreshTokenFunc();
-      }
-    } else {
-      refreshTokenFunc();
-    }
-  }, []);
-
   return (
     <AuthContext.Provider
       value={{
@@ -106,7 +89,6 @@ export const AuthProvider = ({ children }) => {
         avatar,
         setAvatar,
         isImageLoaded,
-        refreshTokenFunc,
       }}
     >
       {children}
