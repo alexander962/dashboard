@@ -27,8 +27,8 @@ const ModalCompanyInfo = ({ isOpen, onClose, title, longitude, latitude, zone })
 
   return (
     <div
-      className={`fixed inset-0 z-50 ${
-        modalOpen ? 'flex' : 'flex -z-10'
+      className={`fixed inset-0 ${
+        modalOpen ? 'flex z-50' : 'flex -z-10'
       } items-center justify-center bg-black bg-opacity-50 px-[16px] py-[20px]`}
     >
       <div className="relative bg-[#181819] px-[34px] pt-[80px] pb-[40px] rounded-2xl w-full max-w-[980px] max-h-[800px] overflow-y-auto">
