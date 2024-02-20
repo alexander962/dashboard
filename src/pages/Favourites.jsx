@@ -127,7 +127,7 @@ const Favourites = () => {
             </div>
           ) : (
             <GraphBlock
-              graphsData={graphsData}
+              graphsData={graphsData?.mines}
               selectedField={selectedField}
               setSelectedField={setSelectedField}
               currentPage={currentPage}
