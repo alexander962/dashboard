@@ -44,7 +44,7 @@ const Favourites = () => {
     getMines(search);
   }, [currentPage, perPage, filters, search]);
 
-  const getMines = async search => {
+  const getMines = async (search = '') => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
@@ -74,6 +74,7 @@ const Favourites = () => {
         console.error('Failed!!!');
       }
     } catch (error) {
+      console.log(error);
       toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);

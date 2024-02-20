@@ -74,14 +74,14 @@ const Update = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const response = await axios.post(`${apiUrl}/mines`, null, {
+      const response = await axios.delete(`${apiUrl}/history`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       });
 
       if (response.status === 200 || response.status === 204) {
-        setHistory(response?.data);
+        getHistory();
       } else {
         console.error('Failed!!!');
       }
@@ -113,7 +113,7 @@ const Update = () => {
             </button>
             <button
               className="text-white font-medium text-[16px] py-[9px] px-[30px] bg-btn-active rounded transition-all duration-300 hover:bg-btn-hover"
-              onClick={getNewHistory}
+              onClick={roadBackHistory}
             >
               Road back
             </button>

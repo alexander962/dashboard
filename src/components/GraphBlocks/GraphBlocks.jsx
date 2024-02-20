@@ -23,8 +23,6 @@ const GraphBlock = ({ selectedField, graphsData, isFavourite = false, currentPag
             percent = '0';
           }
 
-          console.log(percent);
-
           return (
             <GraphProduction
               data={item}

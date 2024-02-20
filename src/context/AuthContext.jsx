@@ -25,23 +25,26 @@ export const AuthProvider = ({ children }) => {
     setUserData(userData);
     setAvatar(`${process.env.REACT_APP_URL}/${userData?.id}`);
 
-    // const tokenExpirationTime = 1 * 60 * 1000;
-    // setTimeout(refreshTokenFunc, tokenExpirationTime);
+    const tokenExpirationTime = 23 * 60 * 60 * 1000;
+    setTimeout(() => refreshTokenFunc(), tokenExpirationTime);
   };
 
-  // const refreshTokenFunc = async () => {
-  //   const apiUrl = process.env.REACT_APP_API_URL;
-  //
-  //   try {
-  //     const response = await axios.get(`${apiUrl}/auth/refresh`);
-  //
-  //     const newToken = response?.data?.token;
-  //     setUserToken(newToken);
-  //     localStorage.setItem('userToken', newToken);
-  //   } catch (error) {
-  //     console.error('Error refreshing token:', error);
-  //   }
-  // };
+  const refreshTokenFunc = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const response = await axios.post(`${apiUrl}/auth/refresh`, {
+        refreshToken: localStorage.getItem('userRefreshToken'),
+      });
+
+      setUserToken(response?.data?.accessToken);
+      localStorage.setItem('userToken', response?.data?.accessToken);
+      setUserRefreshToken(response?.data?.refreshToken);
+      localStorage.setItem('userRefreshToken', response?.data?.refreshToken);
+    } catch (error) {
+      console.error('Error refreshing token:', error);
+    }
+  };
 
   const logout = () => {
     setIsAuthenticated(false);
@@ -71,6 +74,23 @@ export const AuthProvider = ({ children }) => {
     img.src = avatar;
   }, [avatar]);
 
+  useEffect(() => {
+    const lastTokenUpdateTime = localStorage.getItem('lastTokenUpdateTime');
+    if (lastTokenUpdateTime) {
+      const currentTime = new Date().getTime();
+      const timeSinceLastUpdate = currentTime - Number(lastTokenUpdateTime);
+      const tokenExpirationTime = 23 * 60 * 60 * 1000;
+      if (timeSinceLastUpdate < tokenExpirationTime) {
+        const timeUntilExpiration = tokenExpirationTime - timeSinceLastUpdate;
+        setTimeout(() => refreshTokenFunc(), timeUntilExpiration);
+      } else {
+        refreshTokenFunc();
+      }
+    } else {
+      refreshTokenFunc();
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -86,6 +106,7 @@ export const AuthProvider = ({ children }) => {
         avatar,
         setAvatar,
         isImageLoaded,
+        refreshTokenFunc,
       }}
     >
       {children}
