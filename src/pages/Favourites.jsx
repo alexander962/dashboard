@@ -113,8 +113,8 @@ const Favourites = () => {
             handleDropdownClose={handleDropdownClose}
           />
           {tableDisplay ? (
-            graphsData?.length > 0 && (
-              <Table graphsData={graphsData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            graphsData?.mines?.length > 0 && (
+              <Table graphsData={graphsData?.mines} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             )
           ) : loading ? (
             <div>
