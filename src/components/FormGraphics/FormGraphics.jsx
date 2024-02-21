@@ -31,7 +31,7 @@ const FormGraphics = ({
   const [filterRegion, setFilterRegion] = useState('');
   // const [filterTime, setFilterTime] = useState('All time');
   const [showDropdownTime, setShowDropdownTime] = useState(false);
-  const [filterStatus, setFilterStatus] = useState('Active Status');
+  const [filterStatus, setFilterStatus] = useState('None');
   const [showDropdownStatus, setShowDropdownStatus] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -93,7 +93,7 @@ const FormGraphics = ({
             </span>
             <span className="mr-[6px]">Filters</span>
             <div className="flex-center-center rounded-full bg-btn-active py-[3px] w-[23px] h-[23px] text-white text-[14px]">
-              {filters.filter(filter => filter.trim() !== '').length}
+              {filters.filter(filter => filter.trim() !== '' && filter.trim() !== 'None').length}
             </div>
           </button>
 
@@ -162,7 +162,8 @@ const FormGraphics = ({
         <div className="flex items-center gap-[11px] flex-wrap">
           {filters?.map((filter, index) => {
             return (
-              filter && (
+              filter &&
+              filter !== 'None' && (
                 <div key={index} className="flex items-center px-[10px] py-[5px] bg-gray-bg rounded">
                   <span className="text-white text-[16px] leading-[23px] mr-[50px]">{filter}</span>
                   <button onClick={() => removeFilter(index)}>

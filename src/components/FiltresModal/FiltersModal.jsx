@@ -61,12 +61,12 @@ const FiltersModal = ({
     setFilterCountry('');
     setFilterRegion('');
     // setFilterTime('All time');
-    setFilterStatus('Active Status');
+    setFilterStatus('None');
     onClose();
   };
 
   // const dropdownOptionsTime = ['All time', 'Day', 'Week'];
-  const dropdownOptionsStatus = ['Active Status', 'Not active status'];
+  const dropdownOptionsStatus = ['None', 'Active Status', 'Not active status'];
 
   // const handleFieldSelectTime = field => {
   //   setFilterTime(field);

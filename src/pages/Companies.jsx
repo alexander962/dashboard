@@ -59,10 +59,11 @@ const Companies = () => {
           primaryCommodity: filters[1],
           developmentStage: filters[2],
           mineType: filters[3],
-          // listOfCommodities: filters[4],
+          listOfCommodities: filters[4] ? filters[4].split(',') : '',
           country: filters[5],
           region: filters[6],
-          // activityStatus: [7],
+          activityStatus:
+            filters[7] === '' || filters[7] === 'None' ? '' : filters[7] === 'Active Status' ? 'active' : 'inactive',
         },
       });
 
