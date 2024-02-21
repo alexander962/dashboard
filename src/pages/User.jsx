@@ -155,7 +155,7 @@ const User = () => {
             </div>
             {/*<TablePayment />*/}
             {/*<TableFavourites />*/}
-            <Table graphsData={graphsData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Table graphsData={graphsData?.mines} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             <div className="mt-[20px]">
               <Pagination
                 currentPage={currentPage}

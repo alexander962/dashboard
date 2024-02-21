@@ -82,7 +82,7 @@ const FormGraphics = ({
           )}
         </div>
 
-        <div className="flex center gap-[12px] max-[768px]:w-full">
+        <div className="flex center gap-[12px] max-[768px]:w-full max-[500px]:flex-wrap">
           <button
             className="flex items-center px-8 py-4 bg-gray-bg rounded text-white text-[16px] leading-[22px] border border-transparent
         hover:border-[#454545] max-[768px]:w-full max-[768px]:flex-center-center"

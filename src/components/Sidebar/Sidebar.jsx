@@ -9,7 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 import UsersIcon from '../ui/icons/UsersIcon';
 import CompaniesIcon from '../ui/icons/CompaniesIcon';
 
-const Sidebar = ({ admin = false }) => {
+const Sidebar = () => {
   const { activeMenu, setActiveMenu, activePlans, setActivePlans } = useStateContext();
   const { logout, userData } = useAuth();
   const activeLink = `flex item-center ${
@@ -71,7 +71,7 @@ const Sidebar = ({ admin = false }) => {
             </div>
           </div>
           <div className="w-full">
-            {activePlans && activeMenu && !admin && (
+            {activePlans && activeMenu && userData?.role !== 'admin' && (
               <div className="relative pt-[29px] pb-4 px-4 border border-solid border-[#454545] rounded-2xl mx-4 mb-[41px]">
                 <button onClick={() => setActivePlans(false)} className="absolute top-[20px] right-4">
                   <img src={closeIcon} alt="" />

@@ -113,7 +113,9 @@ const Favourites = () => {
             handleDropdownClose={handleDropdownClose}
           />
           {tableDisplay ? (
-            <Table graphsData={graphsData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            graphsData?.length > 0 && (
+              <Table graphsData={graphsData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            )
           ) : loading ? (
             <div>
               <ClipLoader
