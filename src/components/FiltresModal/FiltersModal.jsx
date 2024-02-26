@@ -6,7 +6,7 @@ const Field = ({ filter, onFilterChange, type, placeholder }) => {
     <input
       type={type}
       className="w-full rounded border border-solid border-[#727272] py-[15px] px-[10px] bg-transparent
-              outline-none text-white text-base font-light tracking-[0.5px] placeholder:text-[#727272] placeholder:text-base placeholder:font-light
+              outline-none text-white text-base font-light tracking-[0.5px] placeholder:text-[#939393] placeholder:text-base placeholder:font-light
               placeholder:tracking-[0.5px] focus:border-primary-active mb-[12px]"
       placeholder={placeholder}
       value={filter}

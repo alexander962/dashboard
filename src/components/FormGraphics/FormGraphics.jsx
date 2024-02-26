@@ -82,10 +82,10 @@ const FormGraphics = ({
           )}
         </div>
 
-        <div className="flex center gap-[12px] max-[768px]:w-full max-[500px]:flex-wrap">
+        <div className="flex center gap-[12px] max-[768px]:w-full max-[768px]:flex-wrap">
           <button
             className="flex items-center px-8 py-4 bg-gray-bg rounded text-white text-[16px] leading-[22px] border border-transparent
-        hover:border-[#454545] max-[768px]:w-full max-[768px]:flex-center-center"
+        hover:border-[#454545] max-[768px]:flex-center-center max-[768px]:flex-grow"
             onClick={() => setShowFiltersModal(true)}
           >
             <span className="mr-2 h-[24px] w-[24px]">
@@ -98,8 +98,8 @@ const FormGraphics = ({
           </button>
 
           <button
-            className="flex items-center px-8 py-4 bg-gray-bg rounded text-white text-[16px] leading-[22px] border border-transparent
-        hover:border-[#454545]"
+            className="flex items-center justify-center px-8 py-4 bg-gray-bg rounded text-white text-[16px] leading-[22px] border border-transparent
+        hover:border-[#454545] max-[768px]:flex-grow"
             onClick={() => setTableDisplay(!tableDisplay)}
           >
             <span className="mr-[12px] h-[24px] w-[24px]">
@@ -114,7 +114,7 @@ const FormGraphics = ({
 
           {isFavourite && (
             <button
-              className="flex items-center px-8 py-4 bg-btn-active rounded text-white text-[16px] leading-[22px] border border-transparent
+              className="flex items-center justify-center max-[768px]:w-full px-8 py-4 bg-btn-active rounded text-white text-[16px] leading-[22px] border border-transparent
              transition-all duration-300 hover:bg-btn-hover"
               onClick={() => setDeleteGraph(!deleteGraph)}
             >
@@ -175,7 +175,7 @@ const FormGraphics = ({
           })}
         </div>
 
-        <div className="relative">
+        <div className="relative z-[60]">
           <button
             className="flex-center-between gap-[12px] px-[10px] py-[5px] min-w-[138px] border border-transparent bg-gray-bg rounded relative focus:border-[#454545]"
             onClick={() => setShowDropdown(!showDropdown)}
@@ -185,7 +185,7 @@ const FormGraphics = ({
           </button>
 
           {showDropdown && (
-            <div className="absolute mt-1 w-full bg-[#242424] rounded px-2 py-1 z-20">
+            <div className="absolute mt-1 w-full bg-[#242424] rounded px-2 py-1 z-[60]">
               {dropdownOptions.map(option => (
                 <div
                   key={option}
