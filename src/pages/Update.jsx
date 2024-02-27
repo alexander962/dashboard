@@ -115,7 +115,7 @@ const Update = () => {
               className="text-white font-medium text-[16px] py-[9px] px-[30px] bg-btn-active rounded transition-all duration-300 hover:bg-btn-hover"
               onClick={roadBackHistory}
             >
-              Road back
+              Roll back
             </button>
           </div>
         </main>

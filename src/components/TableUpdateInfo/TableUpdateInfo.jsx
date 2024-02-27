@@ -53,7 +53,7 @@ const TableUpdateInfo = () => {
             </div>
             <div className="py-[14px]">
               <button className="text-[16px] text-white font-medium text-center w-full border border-[#454545] rounded py-[6px]">
-                Road back
+                Roll back
               </button>
             </div>
             <div className="mt-1">
