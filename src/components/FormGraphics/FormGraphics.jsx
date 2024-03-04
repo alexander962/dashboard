@@ -175,7 +175,7 @@ const FormGraphics = ({
           })}
         </div>
 
-        <div className="relative z-[60]">
+        <div className="relative z-[40]">
           <button
             className="flex-center-between gap-[12px] px-[10px] py-[5px] min-w-[138px] border border-transparent bg-gray-bg rounded relative focus:border-[#454545]"
             onClick={() => setShowDropdown(!showDropdown)}
