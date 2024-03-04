@@ -89,6 +89,7 @@ export const AuthProvider = ({ children }) => {
         avatar,
         setAvatar,
         isImageLoaded,
+        refreshTokenFunc,
       }}
     >
       {children}

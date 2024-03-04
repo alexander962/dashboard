@@ -21,7 +21,7 @@ const override = css`
 
 const Companies = () => {
   const { tableDisplay, selectedField, setSelectedField, activeMenu } = useStateContext();
-  const { userToken } = useAuth();
+  const { userToken, refreshTokenFunc } = useAuth();
   const [graphsData, setGraphsData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(50);
@@ -42,7 +42,7 @@ const Companies = () => {
 
   useEffect(() => {
     getMines(search);
-  }, [currentPage, perPage, filters, search]);
+  }, [currentPage, perPage, filters, search, userToken]);
 
   const getMines = async (search = '') => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -74,7 +74,11 @@ const Companies = () => {
         console.error('Failed!!!');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     } finally {
       setLoading(false);
     }

@@ -21,7 +21,7 @@ const override = css`
 
 const Dashboard = () => {
   const { tableDisplay, selectedField, setSelectedField, activeMenu } = useStateContext();
-  const { userToken } = useAuth();
+  const { userToken, refreshTokenFunc } = useAuth();
   const [graphsData, setGraphsData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(50);
@@ -42,7 +42,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getMines(search);
-  }, [currentPage, perPage, filters, search]);
+  }, [currentPage, perPage, filters, search, userToken]);
 
   const getMines = async (search = '') => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -70,11 +70,16 @@ const Dashboard = () => {
       if (response.status === 200 || response.status === 204) {
         setGraphsData(response?.data);
         setDropdownOptionsSearch(response?.data?.mines.map(item => item?.name));
-      } else {
-        console.error('Failed!!!');
+      } else if (response.status === 401) {
+        console.error('Failed 401!!!', response);
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      console.log('Error', error);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     } finally {
       setLoading(false);
     }

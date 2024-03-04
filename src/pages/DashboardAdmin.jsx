@@ -19,7 +19,7 @@ const override = css`
 
 const DashboardAdmin = () => {
   const { activeMenu } = useStateContext();
-  const { userToken } = useAuth();
+  const { userToken, refreshTokenFunc } = useAuth();
   const [graphData, setGraphData] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,7 @@ const DashboardAdmin = () => {
   useEffect(() => {
     getProduction();
     getUsers();
-  }, []);
+  }, [userToken]);
 
   const getProduction = async () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -45,7 +45,11 @@ const DashboardAdmin = () => {
         console.error('Failed!!!');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -67,7 +71,11 @@ const DashboardAdmin = () => {
         console.error('Failed!!!');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     } finally {
       setLoading(false);
     }

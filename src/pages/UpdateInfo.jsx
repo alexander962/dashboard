@@ -23,14 +23,14 @@ const override = css`
 const Update = () => {
   const { id } = useParams();
   const { activeMenu } = useStateContext();
-  const { userToken } = useAuth();
+  const { userToken, refreshTokenFunc } = useAuth();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getHistory();
-  }, [currentPage]);
+  }, [currentPage, userToken]);
 
   const getHistory = async () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -53,7 +53,11 @@ const Update = () => {
         console.error('Failed!!!');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     } finally {
       setLoading(false);
     }

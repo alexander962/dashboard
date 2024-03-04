@@ -28,7 +28,7 @@ const Company = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { activeMenu } = useStateContext();
-  const { userToken } = useAuth();
+  const { userToken, refreshTokenFunc } = useAuth();
   const [isFavorite, setIsFavorite] = useState(data?.isFavorite);
 
   const newValueProduction = data?.commodityProduction[data?.commodityProduction.length - 1].tone;
@@ -77,7 +77,11 @@ const Company = () => {
         toast.error('Failed to add to favorites');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     }
   };
 
@@ -101,7 +105,11 @@ const Company = () => {
           console.error('Failed!!!');
         }
       } catch (error) {
-        toast.error(error?.response?.data?.message);
+        if (error?.response?.status && error?.response?.status === 403) {
+          refreshTokenFunc();
+        } else {
+          toast.error(error?.message ? error?.message : error?.response?.data?.message);
+        }
       } finally {
         setLoading(false);
       }

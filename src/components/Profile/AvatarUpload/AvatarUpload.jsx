@@ -2,9 +2,10 @@ import React from 'react';
 import { avatarExp, editeIcon } from '../../../assets/images';
 import axios from 'axios';
 import { useAuth } from '../../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 const AvatarUpload = () => {
-  const { userToken, userData, avatar, setAvatar, isImageLoaded } = useAuth();
+  const { userToken, userData, avatar, setAvatar, isImageLoaded, refreshTokenFunc } = useAuth();
 
   const handleImageChange = async event => {
     const file = event.target.files[0];
@@ -27,7 +28,11 @@ const AvatarUpload = () => {
             setAvatar(`${process.env.REACT_APP_URL}/${userData?.id}?t=${timestamp}`);
           }
         } catch (error) {
-          console.error(error);
+          if (error?.response?.status && error?.response?.status === 403) {
+            refreshTokenFunc();
+          } else {
+            toast.error(error?.message ? error?.message : error?.response?.data?.message);
+          }
         }
       };
 

@@ -24,7 +24,7 @@ const GraphProduction = ({ data, dataMines, percent, index, deleteGraph, isFavou
   // const [selectedField, onFieldSelect] = useState('Year');
   const [selectData, setSelectData] = useState(dataMines);
   const [chartKey, setChartKey] = useState(0);
-  const { userToken } = useAuth();
+  const { userToken, refreshTokenFunc } = useAuth();
 
   useEffect(() => {
     setChartKey(prevKey => prevKey + 1);
@@ -48,7 +48,11 @@ const GraphProduction = ({ data, dataMines, percent, index, deleteGraph, isFavou
         console.error('Failed!!!');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     }
   };
 

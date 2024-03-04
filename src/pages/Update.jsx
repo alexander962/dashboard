@@ -20,11 +20,11 @@ const Update = () => {
   const { activeMenu } = useStateContext();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { userToken } = useAuth();
+  const { userToken, refreshTokenFunc } = useAuth();
 
   useEffect(() => {
     getHistory();
-  }, []);
+  }, [userToken]);
 
   const getHistory = async () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -42,7 +42,11 @@ const Update = () => {
         console.error('Failed!!!');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -64,7 +68,11 @@ const Update = () => {
         console.error('Failed!!!');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -86,7 +94,11 @@ const Update = () => {
         console.error('Failed!!!');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     } finally {
       setLoading(false);
     }

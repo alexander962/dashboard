@@ -18,7 +18,7 @@ const Profile = () => {
   const [edit, setEdit] = useState(false);
   const [activeTab, setActiveTab] = useState('Profile');
   const { activeMenu } = useStateContext();
-  const { userData, userToken, setUserData } = useAuth();
+  const { userData, userToken, setUserData, refreshTokenFunc } = useAuth();
   const {
     register,
     handleSubmit,
@@ -52,7 +52,11 @@ const Profile = () => {
         console.error('Failed to update user data');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     }
   };
 
@@ -84,7 +88,11 @@ const Profile = () => {
         console.error('Failed to update user data');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (error?.response?.status && error?.response?.status === 403) {
+        refreshTokenFunc();
+      } else {
+        toast.error(error?.message ? error?.message : error?.response?.data?.message);
+      }
     }
   };
 
