@@ -71,7 +71,7 @@ const Companies = () => {
         setGraphsData(response?.data);
         setDropdownOptionsSearch(response?.data?.mines.map(item => item?.name));
       } else {
-        console.error('Failed!!!');
+        console.error('Failed!');
       }
     } catch (error) {
       if (error?.response?.status && error?.response?.status === 403) {

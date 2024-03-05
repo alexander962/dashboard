@@ -7,6 +7,7 @@ import { validEmail, validPassword } from './login.constants';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import AuthServices from '../../services/AuthServices';
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -26,12 +27,7 @@ const Registration = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const response = await axios.post(`${apiUrl}/auth/register`, {
-        fullName: data.name,
-        email: data.email,
-        password: data.password,
-        country: data.country,
-      });
+      const response = await AuthServices.register(data?.name, data?.email, data?.password, data?.country);
 
       if (response.status === 200 || response.status === 201) {
         const { userId, accessToken, refreshToken } = response.data;
@@ -51,7 +47,7 @@ const Registration = () => {
       console.error('Error during registration', error);
       if (error.response && error.response.status === 400) {
         toast.error(
-          error?.response?.data?.message ? error?.response?.data?.message : error?.response?.data?.message[0]
+          error?.response?.data?.message[0] ? error?.response?.data?.message[0] : error?.response?.data?.message
         );
       }
     }

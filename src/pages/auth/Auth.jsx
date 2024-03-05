@@ -7,6 +7,7 @@ import { validEmail, validPassword } from './login.constants';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import AuthServices from '../../services/AuthServices';
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -22,10 +23,7 @@ const Auth = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const response = await axios.post(`${apiUrl}/auth/login`, {
-        email: data.email,
-        password: data.password,
-      });
+      const response = await AuthServices.login(data.email, data.password);
 
       if (response.status === 200 || response.status === 201) {
         const { userId, accessToken, refreshToken } = response.data;
