@@ -111,7 +111,16 @@ const Companies = () => {
           />
           {tableDisplay ? (
             graphsData?.mines.length > 0 && (
-              <Table graphsData={graphsData?.mines} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+              <>
+                <Table graphsData={graphsData?.mines} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                <div className="mt-[20px]">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(graphsData?.count / perPage)}
+                    onPageChange={setCurrentPage}
+                  />
+                </div>
+              </>
             )
           ) : loading ? (
             <div>
@@ -125,21 +134,23 @@ const Companies = () => {
               />
             </div>
           ) : (
-            <GraphBlock
-              graphsData={graphsData?.mines}
-              selectedField={selectedField}
-              setSelectedField={setSelectedField}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
+            <>
+              <GraphBlock
+                graphsData={graphsData?.mines}
+                selectedField={selectedField}
+                setSelectedField={setSelectedField}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+              <div className="mt-[20px]">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={Math.ceil(graphsData?.count / perPage)}
+                  onPageChange={setCurrentPage}
+                />
+              </div>
+            </>
           )}
-          <div className="mt-[20px]">
-            <Pagination
-              currentPage={currentPage}
-              totalPages={Math.ceil(graphsData?.count / perPage)}
-              onPageChange={setCurrentPage}
-            />
-          </div>
         </main>
       </div>
     </div>

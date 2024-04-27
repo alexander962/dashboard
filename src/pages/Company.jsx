@@ -11,7 +11,7 @@ import ArrowBack from '../components/ui/icons/ArrowBack';
 import AddFavoriteIcon from '../components/ui/icons/AddFavoriteIcon';
 import { useStateContext } from '../context/ContextProvider';
 import GraphProduction from '../components/GraphProduction/GraphProduction';
-import { articleDataProduction, articleDataRevenue, articleDataExpenses } from '../data/articleData';
+import { articleData } from '../data/articleData';
 import GraphRevenue from '../components/GraphRevenue/GraphRevenue';
 import GraphExpenses from '../components/GraphExpenses/GraphExpenses';
 import axios from 'axios';
@@ -31,15 +31,15 @@ const Company = () => {
   const { userToken, refreshTokenFunc } = useAuth();
   const [isFavorite, setIsFavorite] = useState(data?.isFavorite);
 
-  const newValueProduction = data?.commodityProduction[data?.commodityProduction.length - 1].tone;
-  const previousValueProduction = data?.commodityProduction[data?.commodityProduction.length - 2].tone;
-  let percentProduction;
-  if (newValueProduction && newValueProduction) {
-    percentProduction = ((newValueProduction - previousValueProduction) / previousValueProduction) * 100;
-    percentProduction = percentProduction.toFixed(2);
-  } else {
-    percentProduction = '0';
-  }
+  // const newValueProduction = data?.commodityProduction[data?.commodityProduction.length - 1].tone;
+  // const previousValueProduction = data?.commodityProduction[data?.commodityProduction.length - 2].tone;
+  // let percentProduction;
+  // if (newValueProduction && newValueProduction) {
+  //   percentProduction = ((newValueProduction - previousValueProduction) / previousValueProduction) * 100;
+  //   percentProduction = percentProduction.toFixed(2);
+  // } else {
+  //   percentProduction = '0';
+  // }
 
   const newValueProcessed = data?.oreProcessed[data?.oreProcessed.length - 1].tone;
   const previousValueProcessed = data?.oreProcessed[data?.oreProcessed.length - 2].tone;
@@ -51,8 +51,8 @@ const Company = () => {
     percentProcessed = '0';
   }
 
-  const newValueCosts = data?.processingCosts[data?.processingCosts.length - 1].tone;
-  const previousValueCosts = data?.processingCosts[data?.processingCosts.length - 2].tone;
+  const newValueCosts = data?.processingCost[data?.processingCost.length - 1].tone;
+  const previousValueCosts = data?.processingCost[data?.processingCost.length - 2].tone;
   let percentCosts;
   if (newValueCosts && newValueCosts) {
     percentCosts = ((newValueCosts - previousValueCosts) / previousValueCosts) * 100;
@@ -161,12 +161,12 @@ const Company = () => {
               <div className="my-4">
                 <GraphProduction
                   data={data}
-                  dataMines={data?.commodityProduction}
-                  percent={percentProduction}
+                  dataMines={data?.production}
+                  // percent={percentProduction}
                   // dataMonth={articleDataProduction?.dataMonth}
                   // dataYear={articleDataProduction?.dataYear}
                   // dataDay={articleDataProduction?.dataDay}
-                  // title={articleDataProduction?.label}
+                  title="Production"
                   // percent={articleDataProduction?.percent}
                 />
               </div>
@@ -174,24 +174,24 @@ const Company = () => {
                 <div className="w-1/2 max-[769px]:w-full">
                   <GraphProduction
                     data={data}
-                    dataMines={data?.oreProcessed}
+                    dataMine={data?.oreProcessed}
                     percent={percentProcessed}
                     // dataMonth={articleDataProduction?.dataMonth}
                     // dataYear={articleDataProduction?.dataYear}
                     // dataDay={articleDataProduction?.dataDay}
-                    // title={articleDataProduction?.label}
+                    title="Cost"
                     // percent={articleDataProduction?.percent}
                   />
                 </div>
                 <div className="w-1/2 max-[769px]:w-full">
                   <GraphProduction
                     data={data}
-                    dataMines={data?.processingCosts}
+                    dataMine={data?.processingCost}
                     percent={percentCosts}
                     // dataMonth={articleDataProduction?.dataMonth}
                     // dataYear={articleDataProduction?.dataYear}
                     // dataDay={articleDataProduction?.dataDay}
-                    // title={articleDataProduction?.label}
+                    title="Processed"
                     // percent={articleDataProduction?.percent}
                   />
                 </div>
