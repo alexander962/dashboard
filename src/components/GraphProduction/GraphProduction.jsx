@@ -34,7 +34,7 @@ const GraphProduction = ({
   const [showDropdownGraph, setShowDropdownGraph] = useState(false);
   const [selectedField, onFieldSelect] = useState('Antimony');
 
-  console.log('dataMine', dataMine);
+  console.log('dataMines', dataMine);
   const [selectData, setSelectData] = useState(dataMine?.length > 0 ? dataMine : dataMines?.antimonyProduction);
   const [chartKey, setChartKey] = useState(0);
   const [percentProduction, setPercentProduction] = useState(0);

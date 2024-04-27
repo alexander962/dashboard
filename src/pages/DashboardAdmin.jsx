@@ -117,7 +117,7 @@ const DashboardAdmin = () => {
               </div>
             ) : (
               <>
-                <GraphProduction data={{ name: 'Production(tonnes)' }} dataMine={graphData} percent={percent} />
+                <GraphProduction data={{ name: 'Production(tonnes)' }} dataMines={graphData} percent={percent} />
                 <GraphUsers usersData={users} />
               </>
             )}
